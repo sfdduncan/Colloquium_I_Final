@@ -428,3 +428,18 @@ iframe {
   display: block;
 }
 
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  padding: 12px;
+}
+
+.image-gallery img,
+.image-gallery video {
+  width: 100%;
+  height: auto;
+  border: 2px solid white;
+  border-radius: 4px;
+  object-fit: cover;
+}
