@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyberfeminism Interactive Timeline</title>
+  <link rel="stylesheet" href="timeline.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div id="year-sidebar">
+    <svg id="year-timeline"></svg>
+  </div>
+
+  <canvas id="circle-canvas"></canvas>
+  <div id="tooltip" class="hidden"></div>
+
+  <div id="bar-chart">
+    <svg id="bar-chart-svg"></svg>
+    <div id="bar-tooltip" class="hidden" style="
+  position: absolute;
+  background: white;
+  border: 1px solid black;
+  padding: 6px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 1000;
+"></div>
+
+  </div>
+
+  <script src="timeline.js"></script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+* {
+  box-sizing: border-box;
+}
+
+/* These are fonts */ 
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.dotgothic16-regular {
+  font-family: "DotGothic16", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
+}
+
+h1 { 
+  text-align: center;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+h2 { 
+
+  font-family:'DotGothic16', monospace; 
+  font-weight: 400; 
+  font-style: normal; 
+}
+
+
+p { 
+  font-family: 'DotGothic16', sans-serif; 
+}
+
+
+#enter-button {
+  font-family: 'DotGothic16', monospace;
+  font-weight: normal;
+  border-radius: 5px; 
+}
+
+/* Shared panel layout */
+.panel {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login Panel - Blue w/ White Dots */
+.login-panel {
+  background-color: #0033cc;
+  background-image: radial-gradient(white 1px, transparent 0);
+  background-size: 30px 30px;
+  color: rgba(255, 255, 255, 0.877);
+}
+
+/* Model container */
+#model-container {
+  width: 300px;
+  height: 300px;
+  margin: 20px 0;
+}
+
+/* Login button */
+#enter-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: white;
+  color: #0033cc;
+  border: 2px solid #0033cc;
+}
+
+/* Loading & Retro Panels */
+.loading-panel,
+.retro-panel {
+  background-color: white;
+  background-image: radial-gradient(#0033cc 1px, transparent 0);
+  background-size: 30px 30px;
+  color: #0033cc;
+  border: 4px solid #0033cc;
+}
+
+/* Progress bar */
+.progress-bar {
+  width: 60%;
+  height: 30px;
+  background: white;
+  border: 2px solid #0033cc;
+  margin-top: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #0033cc;
+  transition: width 3s ease-in-out;
+}
+
+/* Typewriter panel box */
+#textbox-container {
+  width: 60%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 2px solid #0033cc;
+  border-radius: 12px;
+  font-family: 'DotGothic16', monospace;
+  color: #0033cc;
+  background: white;
+  position: relative;
+}
+
+/* Text content */
+#typewriter-text {
+  min-height: 100px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* Arrows in bottom right */
+#nav-arrows {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 1.5rem;
+}
+
+#nav-arrows span {
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+/* Next section button */
+.nav-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: .75rem;
+  font-family: 'DotGothic16', monospace;
+  background-color: white;
+  color: #0033cc;
+  border: 1px solid #0033cc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.nav-button:hover {
+  background-color: #0033cc;
+  color: white;
+}
+
+/* Utility */
+.hidden {
+  display: none;
+}
+
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+
+
+/* This is for Section 2 */ 
+
+#top-bar, #bottom-bar {
+  background: linear-gradient(to bottom, #d8d8d8, #a8a8a8); /* shiny bevel */
+  color: #000;
+  font-size: 0.75rem;
+  font-family: 'DotGothic16', monospace;
+  font-weight: bold;
+  width: 100%;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  z-index: 10;
+  box-shadow:
+    inset 0 1px 0 #ffffff,  /* top inner highlight */
+    inset 0 -1px 0 #6e6e6e, /* bottom inner shadow */
+    0 2px 4px rgba(0,0,0,0.2); /* outer drop shadow */
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #6e6e6e;
+}
+
+#top-bar {
+  top: 0;
+  border-bottom: 2px solid #888;
+
+}
+
+#bottom-bar {
+  bottom: 0;
+  border-top: 2px solid #888;
+
+}
+
+/* Desktop area */
+#desktop-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 40px;
+  display: block; 
+  overflow: hidden;
+  background-color: rgb(19, 67, 189);
+  background-image: none;
+
+}
+
+/* Desktop icons */
+.desktop-icon {
+  width: 48px;
+  text-align: center;
+  font-size: 0.5rem;
+  font-family: 'Press Start 2P', monospace;
+  cursor: grab; 
+  user-select: none;
+  position: absolute;
+  box-sizing: none;
+}
+
+.desktop-icon img {
+  width: 48px;
+  height: 48px;
+  border: none; 
+  outline: none;
+  display: block;
+  background: transparent; /* Just in case */
+  image-rendering: pixelated; /* Keeps pixel art crisp if scaled */
+
+
+}
+
+/* Drag effect */
+.desktop-icon:active {
+  cursor: grabbing;
+}
+
+.desktop-icon p { 
+  margin-top: 5px; 
+  color: whitesmoke;
+  text-align: center;
+}
+
+
+/* This part styles my popups */ 
+
+.window {
+  position: absolute;
+  resize: both;
+  top: 150px;
+  left: 150px;
+  width: 800px;
+  height: 600px;
+  background: white;
+  border: 2px solid black;
+  box-shadow: 6px 6px 0px black;
+  display: none;
+  z-index: 100;
+  font-family: 'DotGothic16', sans-serif;
+  overflow: auto; 
+}
+
+.window-header {
+  background: lightgray;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  border-bottom: 2px solid black;
+}
+
+.window-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.window-close {
+  font-family: monospace;
+  font-weight: bold;
+  background: white;
+  border: 2px solid black;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  line-height: 18px;
+}
+
+.window-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.window-buttons button {
+  background: white;
+  border: 2px solid black;
+  font-family: monospace;
+  font-weight: bold;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.window.fullscreen {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+.window.minimized .window-content {
+  display: none;
+}
+
+
+/* this is for my methodology chart */ 
+
+#chart .node.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%   { r: 2.5; opacity: 1; }
+  50%  { r: 5; opacity: 0.6; }
+  100% { r: 2.5; opacity: 1; }
+}
+
+#window-network-map {
+  display: block !important;
+}
+
+#window-network-map .window-content {
+  width: 800px;
+  height: 600px;
+  background: black;
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+/* This is for my avatar */ 
+
+#panel-avatar {
+  position: absolute;
+  bottom: 150px;
+  right: 350px;
+  width: 160px;
+  animation: idle-bounce 1s ease-in-out infinite;
+  z-index: 999;
+  pointer-events: none;
+}
+
+@keyframes idle-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+
+/* this is for the rhetorical */ 
+
+#rhetorical-terminal {
+  font-family: 'DotGothic16', monospace;
+  font-size: 14px;
+  background: rgb(255, 255, 255);
+  color: #0000c6;
+  padding: 1rem;
+  border-radius: 4px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  min-height: 150px;
+  position: relative;
+}
+
+#rhetorical-cursor {
+  display: inline-block;
+  background: #33ff33;
+  width: 8px;
+  height: 1em;
+  vertical-align: bottom;
+  margin-left: 2px;
+  animation: blink 0.6s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

@@ -1,0 +1,71 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 100px 1fr 150px; /* Left | Center | Right */
+  grid-template-rows: 1fr;
+  grid-template-areas: "sidebar canvas bar";
+  height: 100%;
+  width: 100%;
+}
+
+
+/* SIDEBAR TIMELINE */
+#year-sidebar {
+  grid-area: sidebar;
+  background: white;
+  border-right: 1px solid black;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#year-timeline {
+  width: 100%;
+  height: 100%;
+}
+
+/* CANVAS */
+#circle-canvas {
+  grid-area: canvas;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* TOOLTIP */
+#tooltip, #bar-tooltip {
+  position: absolute;
+  background: white;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 12px;
+  max-width: 300px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hidden {
+  display: none;
+}
+
+#bar-chart {
+  grid-area: bar;
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid black;
+  background: white;
+  position: relative;
+}
+
+#bar-chart-svg {
+  width: 100%;
+  height: 100%;
+}

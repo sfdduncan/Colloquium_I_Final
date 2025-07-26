@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neural Actor-Network</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="gallery.css">       <!-- auto-scroll gallery styles -->
+  <link rel="stylesheet" href="community.css" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+</style>
+
+  <!-- Libraries -->
+   <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/d3-force-3d"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/3d-force-graph@1.70.3/dist/3d-force-graph.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+</head>
+<body>
+<!-- Login Screen -->
+  <div id="login-screen" class="panel login-panel">
+    <h1>Interface Urbanism Forgot the Body. Click Here to Reclaim It.</h1>
+    <h3><i>Code, Space, and the Rise of the Decolonized Cyborg</i></h3>
+    <div id="model-container"></div>
+    <button id="enter-button">Click me to Enter</button>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="panel loading-panel hidden">
+    <h2>Loading...</h2>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Section 1: Typewriter Panel -->
+  <div id="section1" class="panel retro-panel hidden">
+    <div id="textbox-container">
+      <p id="typewriter-text"></p>
+      <div id="nav-arrows">
+        <span id="back-arrow">←</span>
+        <span id="next-arrow">→</span>
+      </div>
+      <!-- New section transition button -->
+        <button id="next-section-button" class="nav-button hidden">Onto the Next Section</button>
+    </div>
+            <img id="panel-avatar" src="avatar.png"/>
+  </div>
+
+
+
+  <!-- Section 2 -->
+<div id="section2" class="panel retro-panel hidden">
+  <!-- Top Bar -->
+  <div id="top-bar">
+    <span>~ Cyborg Desktop ~</span>
+  </div>
+
+<!-- Icon Container -->
+<div id="desktop-area">
+
+  <div class="desktop-icon" data-window="window-network" style="left: 120px; top: 100px;" draggable="true">
+    <img src="pixel_folder.png" alt="Network Map"/>
+    <p>Network Map</p>
+    <div id="tooltip" style="position: absolute; display: none; color: white; background: black; padding: 4px; border-radius: 4px;"></div>
+
+  </div>
+
+  <div class="desktop-icon" data-window="window-readings" style="left: 400px; top: 160px;" draggable="true">
+    <img src="pixel_folder.png" alt="Essential Readings" />
+    <p>Essential Readings</p>
+  </div>
+
+  <div class="desktop-icon" data-window="window-designs" style="left: 240px; top: 320px;" draggable="true">
+    <img src="pixel_folder.png" alt="A Timeline of Cyberfeminist Literature" />
+    <p>A Timeline of Cyberfeminism Literature</p>
+  </div>
+
+  <div class="desktop-icon" data-window="window-community" style="left: 700px; top: 220px;" draggable="true">
+    <img src="pixel_folder.png" alt="Community of Practice" />
+    <p>Community of Practice</p>
+  </div>
+
+  <div class="desktop-icon" data-window="window-methods" style="left: 560px; top: 380px;" draggable="true">
+    <img src="pixel_folder.png" alt="Methods of Madness" />
+    <p>Methods of Madness</p>
+  </div>
+
+  <div class="desktop-icon" data-window="window-experiments" style="left: 900px; top: 120px;" draggable="true">
+    <img src="pixel_folder.png" alt="Some Experimental Stuff" />
+    <p>Some Experimental Stuff</p>
+  </div>
+
+  <div class="desktop-icon" data-window="window-rhetorical" style="left: 1040px; top: 260px;" draggable="true">
+    <img src="pixel_folder.png" alt="What am I getting at?" />
+    <p>What am I getting at?</p>
+  </div>
+
+</div>
+  <!-- Bottom Bar -->
+  <div id="bottom-bar">
+  </div>
+</div>
+
+
+
+<!-- Window: Network Map -->
+<div class="window" id="window-network">
+  <div class="window-header">
+    <span class="window-title">Network Map</span>
+    <button class="window-close">X</button>
+  </div>
+    <iframe 
+    src="another.html"
+    style="width: 100%; height: 100%; border: none;"
+    title="Network Map">
+  </iframe>
+</div>
+
+
+<!-- Window: Essential Readings -->
+<div class="window" id="window-readings">
+  <div class="window-header">
+    <span class="window-title">Essential Readings</span>
+    <button class="window-close">X</button>
+  </div>
+  <div class="window-content">
+    <div class="gallery">
+      <div class="column" id="left-column"></div>
+      <div class="column reverse" id="middle-column"></div>
+      <div class="column" id="right-column"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Window: Design -->
+<div class="window" id="window-designs">
+  <div class="window-header">
+    <span class="window-title">A Timeline of Cyberfeminism</span>
+    <button class="window-close">X</button>
+  </div>
+    <iframe 
+    src="3D_timeline/timeline.html"
+    style="width: 100%; height: 100%; border: none;"
+    title="timeline">
+  </iframe>
+
+
+  </div>
+</div>
+
+<!-- Window: Community -->
+<div class="window" id="window-community">
+  <div class="window-header">
+    <span class="window-title">Community in this field</span>
+    <button class="window-close">X</button>
+  </div>
+  <div class="window-content">
+    <div id="community-gallery-wrapper">
+      <button id="community-arrow-left" class="community-arrow">&#8592;</button>
+      <div id="community-gallery"></div>
+      <button id="community-arrow-right" class="community-arrow">&#8594;</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Window: Methods -->
+<div class="window" id="window-methods">
+  <div class="window-header">
+    <span class="window-title">Methods of Madness</span>
+    <button class="window-close">X</button>
+  </div>
+  <div class="window-content">
+    <div id="methods-chart"></div>
+  </div>
+</div>
+
+
+<!-- Window: Rhetorical Map -->
+<div class="window" id="window-rhetorical">
+  <div class="window-header">
+    <span class="window-title">What am I getting at? </span>
+    <button class="window-close">X</button>
+  </div>
+  <div class="window-content">
+    <div id="rhetorical-terminal">
+      <span id="rhetorical-text"></span><span id="rhetorical-cursor">&nbsp;</span>
+    </div>
+  </div>
+</div>
+
+<!-- Window: Essential Readings -->
+<div class="window" id="window-experiments">
+  <div class="window-header">
+    <span class="window-title">Experiments</span>
+    <button class="window-close">X</button>
+  </div>
+  <div class="window-content">
+    <p>Example of works!</p>
+  </div>
+</div>
+
+
+
+  <script src="community.js"></script>
+  <script src="methods_circle.js"></script>
+  <script src="scripts.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
+

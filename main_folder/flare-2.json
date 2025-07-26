@@ -1,0 +1,166 @@
+{
+  "name": "My Methods",
+  "children": [
+    {
+      "name": "Game Design",
+      "children": [
+        {
+          "name": "Indigenous & Speculative Games",
+          "children": [
+            { "name": "Never Alone (Upper One Games, Iñupiat co‑creation)" },
+            { "name": "Hill Agency: Purity/Decay (Meagan Byrne, Métis cyber-noir)" },
+            { "name": "Skábma: Snowfall (Sámi-led Sámi-language folklore)" },
+            { "name": "Indigenous Videogame Innovation (Elizabeth LaPensée)" }
+          ]
+        },
+        {
+          "name": "Tools & Methods",
+          "children": [
+            { "name": "p5.js / m5.js for creative prototyping" },
+            { "name": "Processing" },
+            { "name": "Unity / Unreal / Godot for narrative worlds" },
+            { "name": "Parametric and fab tools: Rhino + Grasshopper" }
+          ]
+        },
+        {
+          "name": "Keywords & Skills",
+          "children": [
+            { "name": "Simulation" },
+            { "name": "Reenactment" },
+            { "name": "Cartographic Regression" },
+            { "name": "Virtual Reality" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Research Architecture",
+      "children": [
+        {
+          "name": "Influential Practices",
+          "children": [
+            { "name": "Forensic Architecture (Eyal Weizman’s London studio)" },
+            { "name": "SITU Studio (NYC research + fabrication collective)" },
+            { "name": "Donna Haraway (cyborg theory, feminist critique)" },
+            { "name": "Shoshana Zuboff (surveillance capitalism critique)" },
+            { "name": "Trebor Scholz (platform co‑op theory)" },
+            { "name": "Shannon Mattern (infrastructural media studies)" }
+          ]
+        },
+        {
+          "name": "Tools & Engagement Modes",
+          "children": [
+            { "name": "Projection Mapping" },
+            { "name": "Surveillance Tech / Sensors" },
+            { "name": "Shadow & Fluid Simulation" },
+            { "name": "Photogrammetry / Remote Sensing" }
+          ]
+        },
+        {
+          "name": "Methods & Keywords",
+          "children": [
+            { "name": "Situated Testimony" },
+            { "name": "Ground Truthing" },
+            { "name": "Synchronisation" },
+            { "name": "Image Complex Analysis" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Algorithmic Design",
+      "children": [
+        {
+          "name": "Computation & Coding",
+          "children": [
+            { "name": "Python (CV, ML, geospatial analysis)" },
+            { "name": "R (sf, ggplot2, leaflet interactivity)" },
+            { "name": "SQL / OSINT-style data mining" },
+            { "name": "Pattern Analysis / Machine Learning" }
+          ]
+        },
+        {
+          "name": "Tools & Environments",
+          "children": [
+            { "name": "Rhino + Grasshopper (parametric design)" },
+            { "name": "Processing" },
+            { "name": "D3.js for algorithmic data viz" }
+          ]
+        },
+        {
+          "name": "Conceptual Keywords",
+          "children": [
+            { "name": "Cartographic Regression" },
+            { "name": "Fluid Dynamics Simulation" },
+            { "name": "Virtual Reality environments" },
+            { "name": "Synchronisation frameworks" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mapping",
+      "children": [
+        {
+          "name": "Spatial Tools",
+          "children": [
+            { "name": "QGIS (Time Manager, Voronoi heatmaps)" },
+            { "name": "ArcGIS Pro (3D / shadow maps)" },
+            { "name": "Mapbox / Kepler.gl / Leaflet" },
+            { "name": "Geolocation & remote sensing workflows" }
+          ]
+        },
+        {
+          "name": "Movements & Community",
+          "children": [
+            { "name": "Decolonial Mapping practices" },
+            { "name": "Indigenous technologists & sovereignty mapping" },
+            { "name": "The Decolonial Atlas collective" },
+            { "name": "Land Back mapping" }
+          ]
+        },
+        {
+          "name": "Techniques & Methods",
+          "children": [
+            { "name": "Ground Truth Fieldwork" },
+            { "name": "Photogrammetry for 3D terrain" },
+            { "name": "Remote sensing validation" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Interactive Design",
+      "children": [
+        {
+          "name": "Creative Tools",
+          "children": [
+            { "name": "p5.js / m5.js generative coding" },
+            { "name": "TouchDesigner (sensor + projection-based)" },
+            { "name": "Arduino for embodied sensors" },
+            { "name": "Web stack: HTML/CSS/JS, Three.js, Svelte.js" }
+          ]
+        },
+        {
+          "name": "Techniques",
+          "children": [
+            { "name": "Generative Art & Vibe Coding" },
+            { "name": "Audio Analysis & reactive visuals" },
+            { "name": "Sensor-based feedback loops" },
+            { "name": "Projection mapping environments" }
+          ]
+        },
+        {
+          "name": "People / Projects",
+          "children": [
+            { "name": "Lauren Lee McCarthy (p5.js creator)" },
+            { "name": "Zach Lieberman" },
+            { "name": "Daniel Shiffman (The Coding Train)" },
+            { "name": "Santiago X (Indigenous futurist in 3D/game art)" },
+            { "name": "Skawennati (AbTeC machinima & cyberspace)" }
+          ]
+        }
+      ]
+    }
+  ]
+}
