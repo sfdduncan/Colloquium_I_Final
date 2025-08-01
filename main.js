@@ -1,5 +1,4 @@
 let typingInterval; // Global reference
-const chipmunkSoundSrc = "chipmunk.mp3"; // your file path
 
 // Element refs
 const enterButton = document.getElementById('enter-button');
@@ -12,8 +11,7 @@ const textElement = document.getElementById('typewriter-text');
 const nextArrow = document.getElementById('next-arrow');
 const backArrow = document.getElementById('back-arrow');
 const nextSectionButton = document.getElementById('next-section-button');
-const chipmunkSound = new Audio("chipmunk.mp3");
-chipmunkSound.volume = 0.1; // Lower so it’s ambient, not annoying
+
 
 
 // Dialogue text
@@ -42,17 +40,11 @@ function typeWriter(text) {
   textElement.textContent = '';
   let i = 0;
 
-  // 🔊 Play chipmunk sound ONCE at start
-  const chip = chipmunkSound.cloneNode();
-  chip.volume = 0.1;
-  chip.currentTime = 0;
-  chip.play();
-
   typingInterval = setInterval(() => {
     textElement.textContent += text.charAt(i);
     i++;
     if (i === text.length) clearInterval(typingInterval);
-  }, 30);
+  }, 20);
 }
 
 function updatePanel(index) {
@@ -318,3 +310,42 @@ icon.addEventListener('dblclick', () => {
     typeRhetorical(rhetoricalText); // trigger typing here
   }
 });
+
+
+// this is for the drop down click 
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const label = item.textContent.trim();
+
+      if (label.startsWith("About Me")) {
+        const aboutWindow = document.getElementById('window-about-me');
+        if (aboutWindow) {
+          aboutWindow.style.display = 'block';
+        } else {
+          console.warn("Could not find #window-about-me in DOM");
+        }
+      }
+
+      else if (label.startsWith("Need a Guide?")) {
+        const dock = document.getElementById('mac-dock');
+        if (dock) {
+          dock.style.display = 'flex';
+        } else {
+          console.warn("Could not find #mac-dock in DOM");
+        }
+      }
+
+      else if (label.startsWith("Log Out")) {
+        alert("Logging out...\n(You can define your own behavior here)");
+      }
+    });
+  });
+});
+
+
+
+function closeWindow(id) {
+  document.getElementById(id).style.display = 'none';
+}

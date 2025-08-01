@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neural Actor-Network</title>
+  <title>Steven Colloquium I Project</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="gallery.css">       <!-- auto-scroll gallery styles -->
   <link rel="stylesheet" href="community.css" />
@@ -32,10 +32,10 @@
 <body>
 <!-- Login Screen -->
   <div id="login-screen" class="panel login-panel">
-    <h1>Interface Urbanism Forgot the Body. Click Here to Reclaim It.</h1>
+    <h1>Interface Urbanism Assumes the Body. Click Here to Reclaim It.</h1>
     <h3><i>Code, Space, and the Rise of the Decolonized Cyborg</i></h3>
     <div id="model-container"></div>
-    <button id="enter-button">Click me to Enter</button>
+    <button id="enter-button">Click Here to Enter</button>
   </div>
 
   <!-- Loading Screen -->
@@ -66,7 +66,24 @@
 <div id="section2" class="panel retro-panel hidden">
   <!-- Top Bar -->
   <div id="top-bar">
-    <span>~ Cyborg Desktop ~</span>
+  <div class="menu-left">
+    <div class="menu-item dropdown">
+      <span class="menu-label active">Cyborg Desktop</span>
+      <div class="dropdown-menu">
+        <div class="dropdown-item active">About Me</div>
+        <div class="dropdown-item">Need a Guide?</div>
+        <div class="dropdown-item">Log Out… <span class="shortcut">⌘Q</span></div>
+      </div>
+    </div>
+
+    <span class="menu-item">File</span>
+    <span class="menu-item">Edit</span>
+    <span class="menu-item">View</span>
+    <span class="menu-item">Go</span>
+    <span class="menu-item">Special</span>
+    <span class="menu-item">Window</span>
+    <span class="menu-item">Help</span>
+  </div>
   </div>
 
 <!-- Icon Container -->
@@ -86,7 +103,12 @@
 
   <div class="desktop-icon" data-window="window-designs" style="left: 240px; top: 320px;" draggable="true">
     <img src="pixel_folder.png" alt="A Timeline of Cyberfeminist Literature" />
-    <p>A Timeline of Cyberfeminism Literature</p>
+    <p>More Theoretical Backing</p>
+  </div>
+
+  <div class="desktop-icon" data-window="window" style="left: 800px; top: 500px;" draggable="true">
+    <img src="pixel_folder.png" alt="Essential Readings" />
+    <p>Design Inspo</p>
   </div>
 
   <div class="desktop-icon" data-window="window-community" style="left: 700px; top: 220px;" draggable="true">
@@ -108,10 +130,24 @@
     <img src="pixel_folder.png" alt="What am I getting at?" />
     <p>What am I getting at?</p>
   </div>
-
+ <div class="desktop-icon" data-window="window-projectidea" style="left: 1090px; top: 400px;" draggable="true">
+    <img src="pixel_folder.png" alt="Project Proposal?" />
+    <p>Potential Project Proposal?</p>
+  </div>
 </div>
   <!-- Bottom Bar -->
-  <div id="bottom-bar">
+  <div id="mac-dock">
+    <!-- === Mac Dock-Style Bottom Bar === -->
+<div id="mac-dock" style="display: none;">
+  <div class="dock-icon"><br>Readings</div>
+  <div class="dock-icon"><br>Community</div>
+  <div class="dock-icon"><br>Experiments</div>
+  <div class="dock-icon"><br>Timeline</div>
+  <div class="dock-icon"><br>Network</div>
+  <div class="dock-icon"><br>Methods</div>
+  <div class="dock-icon"><br>Rhetoric</div>
+</div>
+
   </div>
 </div>
 
@@ -121,10 +157,13 @@
 <div class="window" id="window-network">
   <div class="window-header">
     <span class="window-title">Network Map</span>
-    <button class="window-close">X</button>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
   </div>
     <iframe 
-    src="another.html"
+    src="network_map.html"
     style="width: 100%; height: 100%; border: none;"
     title="Network Map">
   </iframe>
@@ -135,7 +174,10 @@
 <div class="window" id="window-readings">
   <div class="window-header">
     <span class="window-title">Essential Readings</span>
-    <button class="window-close">X</button>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
   </div>
   <div class="window-content">
     <div class="gallery">
@@ -151,21 +193,31 @@
 <div class="window" id="window-designs">
   <div class="window-header">
     <span class="window-title">A Timeline of Cyberfeminism</span>
-    <button class="window-close">X</button>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
   </div>
+
+  <!-- Add a wrapper around the iframe -->
+  <div class="window-content" style="width: 100%; height: 100%; overflow: auto;">
     <iframe 
-      src="https://sfdduncan.github.io/Colloquium_I_Final/3D_timeline/timeline.html" 
-      style="width: 100%; height: 100%; display: block; border: none;" 
+      src="timeline.html" 
+      style="width: 1200px; height: 800px; border: none;" 
       title="Cyberfeminism Timeline">
-  </iframe>
+    </iframe>
   </div>
 </div>
+
 
 <!-- Window: Community -->
 <div class="window" id="window-community">
   <div class="window-header">
     <span class="window-title">Community in this field</span>
-    <button class="window-close">X</button>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
   </div>
   <div class="window-content">
     <div id="community-gallery-wrapper">
@@ -181,7 +233,11 @@
 <div class="window" id="window-methods">
   <div class="window-header">
     <span class="window-title">Methods of Madness</span>
-    <button class="window-close">X</button>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
+    
   </div>
   <div class="window-content">
     <div id="methods-chart"></div>
@@ -193,7 +249,10 @@
 <div class="window" id="window-rhetorical">
   <div class="window-header">
     <span class="window-title">What am I getting at? </span>
-    <button class="window-close">X</button>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
   </div>
   <div class="window-content">
     <div id="rhetorical-terminal">
@@ -206,7 +265,10 @@
 <div class="window" id="window-experiments">
   <div class="window-header">
     <span class="window-title">Experiments</span>
-    <button class="window-close">X</button>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
   </div>
   <div class="window-content">
     <div class="image-gallery">
@@ -216,6 +278,83 @@
     </div>
   </div>
 </div>
+
+<!-- Design Inspiration Window -->
+<div class="window" id="window-design">
+  <div class="window-header">
+    <span class="window-title">Design Inspo</span>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
+  </div>
+  <div class="window-content">
+    <div class="image-gallery">
+
+    </div>
+  </div>
+</div>
+
+<!-- Window: Project Idea -->
+<div class="window" id="window-projectidea">
+  <div class="window-header">
+    <span class="window-title">Project Proposal?</span>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
+  </div>
+    <div class="window-content" id="window-projectidea">
+      <p><b><i>Post-Body Archives</i></b> is an interactive design experiment and spatial archive that explores what remains when the body is rendered uncomputable. Rooted in a decolonial, cyborgian ethic, the project resists the predictive gaze of algorithmic systems, reclaiming both physical and digital space as sites of refusal, memory, and spectral presence.</p>
+      
+      <p>Using machine learning, the project identifies human figures in photographs of real-world environments and renders them as white silhouettes—ghosts, remnants, or voids within the scene. These altered images are then passed through <b>UniK3D</b>, a model that reconstructs metric 3D scenes from single images, resulting in fragmented point clouds that carry the imprint of what was intentionally erased.</p>
+
+      <img src="3D_MononuclearVision_gif.gif">
+      
+      <p>The final work exists in two forms:</p>
+
+      <p><b>1. Spatial Installation</b>
+      A full-body interactive projection invites viewers to explore these haunted environments. Using cameras and spatial sensors, the system tracks movement—allowing visitors to shift their perspective through bodily presence rather than keyboard or mouse. The installation responds subtly: point clouds may flicker, stretch, or blur when viewers approach the ghosted areas, creating a living archive of unresolvable presence.</p>
+
+      <p><b>2. Game-Like Archive</b>
+      As a parallel digital artifact, <b><i>Post-Body Archives</i></b> takes form as a nonlinear, exploratory game. Players traverse a collection of spectral 3D environments—each once-inhabited, now partially erased. There is no objective, no score, no completion. Only wandering, wondering, and witnessing what computation tried (and failed) to predict. Metadata is poetic, fractured, or hidden—refusing to be neatly indexed.</p>
+
+      <p><b><i>Post-Body Archives</i></b> proposes that bodies can haunt computational space without being captured by it. That absence is not emptiness, but testimony. That archives do not always preserve—they can glitch, resist, and remember differently.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- === About Me Window === -->
+<div class="window about-me-window" id="window-about-me" style="display: none;">
+  <div class="window-header">
+    <span class="window-title">About Me</span>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close" onclick="closeWindow('window-about-me')">X</button>
+    </div>
+  </div>
+  <div class="window-content about-me-content">
+    <img src="avatar.png" class="about-icon" alt="Face Icon" />
+    <h1>Steven Duncan</h1>
+    <p class="about-subtext">Designer • Researcher • Urbanist</p>
+    <p style="text-align: center;">I create things at the intersection of technology, space, and protest. Below are a few of my recent explorations:</p>
+
+    <div class="project-gallery">
+      <div class="project-entry">
+        <h3>Project Title One</h3>
+        <p>Short description of the project and what it does or explores.</p>
+      </div>
+      <div class="project-entry">
+        <h3>Project Title Two</h3>
+        <p>Short description of the project and your role in it.</p>
+      </div>
+      <!-- Add more as needed -->
+    </div>
+  </div>
+</div>
+
 
 
 

@@ -1,0 +1,80 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  font-family: sans-serif;
+}
+
+#timeline-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Left sidebar */
+#year-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100%;
+  border-right: 1px solid black;
+  background: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+#year-timeline {
+  width: 100%;
+  height: 100%;
+}
+
+/* Center canvas */
+#circle-canvas {
+  position: absolute;
+  top: 0;
+  left: 100px; /* width of sidebar */
+  right: 50px; /* width of bar chart */
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+/* Right bar chart */
+#bar-chart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  border-left: 1px solid black;
+  background: white;
+  z-index: 2;
+}
+
+#bar-chart-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Tooltip */
+#tooltip, #bar-tooltip, #timeline-tooltip {
+  position: absolute;
+  background: white;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 12px;
+  max-width: 300px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.hidden {
+  display: none;
+}

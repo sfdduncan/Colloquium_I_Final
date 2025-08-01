@@ -3,31 +3,24 @@ const canvas = document.getElementById("circle-canvas");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
-  canvas.width = canvas.clientWidth;
-  canvas.height = canvas.clientHeight;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  canvas.width = width;
+  canvas.height = height;
 }
 
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas); // this will help me later when I need to add it to window 
+window.addEventListener('resize', resizeCanvas);
 
-const tooltip = document.getElementById("tooltip");
-const barTooltip = document.getElementById("bar-tooltip"); // for popups
+const tooltip = document.getElementById("timeline-tooltip");
+const barTooltip = document.getElementById("bar-tooltip");
 
 let data = [];
 let circles = [];
 let yearGroups = new Map();
+let hoveredYear = null;
 
-// Vibrant Y2K-style colors (expand as needed)
-const yearColors = d3.scaleOrdinal()
-  .domain([...yearGroups.keys()].sort())
-  .range([
-    "#ff00ff", "#00ffff", "#ffcc00", "#ff3300", "#33cc33",
-    "#6600ff", "#00ffcc", "#cc00ff", "#3399ff", "#ff6666",
-    "#ccff00", "#ff0099", "#00ff00", "#0099ff", "#ff9933",
-    "#ff3399", "#66ffcc", "#cc66ff", "#33ff99", "#9900cc",
-    "#ffff00", "#00ccff", "#ffccff", "#ff4444", "#44ffcc"
-  ]);
-
+// Utility
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -41,9 +34,13 @@ function createCirclesFromData(jsonData) {
     yearGroups.get(d.year).push(d);
   });
 
+  // Assign consistent year colors
+  const years = [...yearGroups.keys()].filter(y => /^\d{4}$/.test(y)).sort();
+  yearColors.domain(years);
+
   // Create floating circles
   circles = data.map(d => ({
-    x: random(120, canvas.width - 50),
+    x: random(5, canvas.width - 50),
     y: random(50, canvas.height - 50),
     vx: random(-0.3, 0.3),
     vy: random(-0.3, 0.3),
@@ -57,13 +54,19 @@ function createCirclesFromData(jsonData) {
   drawBarChart();
 }
 
+const yearColors = d3.scaleOrdinal().range([
+  "#ff00ff", "#00ffff", "#ffcc00", "#ff3300", "#33cc33",
+  "#6600ff", "#00ffcc", "#cc00ff", "#3399ff", "#ff6666",
+  "#ccff00", "#ff0099", "#00ff00", "#0099ff", "#ff9933",
+  "#ff3399", "#66ffcc", "#cc66ff", "#33ff99", "#9900cc",
+  "#ffff00", "#00ccff", "#ffccff", "#ff4444", "#44ffcc"
+]);
+
 function drawYearTimeline() {
   const svg = d3.select("#year-timeline");
   svg.selectAll("*").remove();
 
-  const years = [...yearGroups.keys()]
-    .filter(y => y && /^\d{4}$/.test(y))  // keep only 4-digit numeric years
-  .sort();
+  const years = [...yearGroups.keys()].filter(y => /^\d{4}$/.test(y)).sort();
   const height = document.getElementById("year-sidebar").clientHeight;
 
   const yScale = d3.scalePoint()
@@ -71,43 +74,50 @@ function drawYearTimeline() {
     .range([30, height - 30]);
 
   svg.append("line")
-    .attr("x1", 50).attr("x2", 50)
+    .attr("x1", 60).attr("x2", 60)
     .attr("y1", 20).attr("y2", height - 20)
     .attr("stroke", "black");
 
-  // Year nodes
-  svg.selectAll("circle")
+  const nodes = svg.selectAll("circle")
     .data(years)
     .enter()
     .append("circle")
-    .attr("cx", 50)
+    .attr("cx", 60)
     .attr("cy", d => yScale(d))
     .attr("r", 6)
-    .attr("fill", "white")
-    .attr("stroke", "black")
+    .attr("fill", d => (d === hoveredYear ? yearColors(d) : "white"))
+    .attr("stroke", d => yearColors(d))
+    .attr("class", d => `timeline-circle-${d}`)
     .on("mouseenter", (event, year) => {
       circles.forEach(c => c.highlighted = (c.year === year));
+      hoveredYear = year;
     })
     .on("mouseleave", () => {
       circles.forEach(c => c.highlighted = false);
+      hoveredYear = null;
     });
 
   svg.selectAll("text")
     .data(years)
     .enter()
     .append("text")
-    .attr("x", 30)
+    .attr("x", 40)
     .attr("y", d => yScale(d) + 4)
     .attr("text-anchor", "end")
     .text(d => d)
     .style("font-size", "10px");
 }
 
+function updateTimelineHighlights() {
+  d3.selectAll("#year-timeline circle")
+    .attr("fill", d => (d === hoveredYear ? yearColors(d) : "white"));
+}
+
 function drawBarChart() {
   const svg = d3.select("#bar-chart-svg");
   svg.selectAll("*").remove();
 
-  const years = [...yearGroups.keys()].filter(y => y && !isNaN(y)).sort();
+  const years = [...yearGroups.keys()].filter(y => !isNaN(y)).sort();
   const yearCounts = years.map(y => ({ year: y, count: yearGroups.get(y).length }));
 
   const chartWidth = document.getElementById("bar-chart").clientWidth;
@@ -118,40 +128,36 @@ function drawBarChart() {
     .range([20, chartHeight - 10])
     .padding(0.2);
 
-const x = d3.scaleLinear()
-  .domain([0, d3.max(yearCounts, d => d.count) || 1]) // fallback to 1 if undefined
-  .range([0, chartWidth - 70]);
+  const x = d3.scaleLinear()
+    .domain([0, d3.max(yearCounts, d => d.count) || 1])
+    .range([0, chartWidth - 70]);
 
-
-  // Draw bars that grow leftward
-svg.selectAll("rect")
-  .data(yearCounts)
-  .enter()
-  .append("rect")
-  .attr("x", d => {
-    const barWidth = x(d.count);
-    return Math.max(chartWidth - barWidth - 50, 0); // prevent negative x
-  })
-  .attr("width", d => Math.max(x(d.count), 0)) // clamp to prevent negative widths
-  .attr("y", d => y(d.year))
-  .attr("height", y.bandwidth())
-  .attr("fill", "white")
-  .attr("stroke", "black")
+  svg.selectAll("rect")
+    .data(yearCounts)
+    .enter()
+    .append("rect")
+    .attr("x", d => Math.max(chartWidth - x(d.count) - 50, 0))
+    .attr("width", d => Math.max(x(d.count), 0))
+    .attr("y", d => y(d.year))
+    .attr("height", y.bandwidth())
+    .attr("fill", "white")
+    .attr("stroke", "black")
     .on("mouseenter", function(event, d) {
-      d3.select(this).attr("fill", "black");
+      d3.select(this).attr("fill", yearColors(d.year));
       barTooltip.classList.remove("hidden");
       barTooltip.innerText = `${d.count} entries in ${d.year}`;
       barTooltip.style.left = `${event.clientX - 5}px`;
       barTooltip.style.top = `${event.clientY}px`;
       circles.forEach(c => c.highlighted = (c.year === d.year));
+      hoveredYear = d.year;
     })
     .on("mouseleave", function() {
-      d3.select(this).attr("fill", "none");
+      d3.select(this).attr("fill", "white");
       barTooltip.classList.add("hidden");
       circles.forEach(c => c.highlighted = false);
+      hoveredYear = null;
     });
 
-  // Year text labels
   svg.selectAll("text")
     .data(yearCounts)
     .enter()
@@ -161,7 +167,6 @@ svg.selectAll("rect")
     .attr("text-anchor", "end")
     .text(d => d.year)
     .style("font-size", "10px");
-
 }
 
 function drawCircles() {
@@ -169,17 +174,13 @@ function drawCircles() {
   for (let c of circles) {
     ctx.beginPath();
     ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-    
     ctx.fillStyle = c.highlighted ? yearColors(c.year) : "white";
     ctx.strokeStyle = c.highlighted ? "black" : yearColors(c.year);
-    ctx.lineWidth = c.highlighted ? 1 : 1;
-    
+    ctx.lineWidth = c.highlighted ? 1.5 : 1;
     ctx.fill();
     ctx.stroke();
   }
 }
-
-
 
 function updatePositions() {
   for (let c of circles) {
@@ -192,11 +193,14 @@ function updatePositions() {
 
 function detectHover(mx, my) {
   let found = false;
+  hoveredYear = null;
+
   for (let c of circles) {
     const dist = Math.hypot(mx - c.x, my - c.y);
-    if (dist < c.r + 4) {
+    if (dist < c.r + 5) {
+      hoveredYear = c.year;
       tooltip.classList.remove("hidden");
-      tooltip.style.left = `${c.x + 12}px`;
+      tooltip.style.left = `${c.x + 12}px`; // Tooltip is placed relative to iframe
       tooltip.style.top = `${c.y + 12}px`;
       tooltip.innerHTML = `
         <strong>${c.data.project || 'Untitled'}</strong><br>
@@ -208,21 +212,29 @@ function detectHover(mx, my) {
       break;
     }
   }
-  if (!found) tooltip.classList.add("hidden");
+
+  if (!found) {
+    tooltip.classList.add("hidden");
+  }
 }
+
 
 function animate() {
   updatePositions();
   drawCircles();
+  updateTimelineHighlights();
   requestAnimationFrame(animate);
 }
 
 canvas.addEventListener("mousemove", (e) => {
   const rect = canvas.getBoundingClientRect();
-  detectHover(e.clientX - rect.left, e.clientY - rect.top);
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  detectHover(x, y);
+  circles.forEach(c => c.highlighted = (c.year === hoveredYear));
 });
 
-// Load JSON and kickstart the app
+// Load and kick off
 fetch("cyberfeminism_manifesto_refs.json")
   .then(res => res.json())
   .then(json => {
