@@ -662,6 +662,7 @@ iframe {
 
 #window-projectidea .window-content {
   padding: 30px;
+  padding-bottom: 75px;
   margin: 0;
   overflow-y: auto;
   font-size: 1rem;
