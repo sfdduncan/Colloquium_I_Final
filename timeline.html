@@ -6,37 +6,43 @@
   <title>Cyberfeminism Timeline</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
-    body {
+    html,body {
+      height: 100%;
       margin: 0;
-      padding: 0;
       font-family: sans-serif;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      display: block;
     }
 
-    #explanation {
-      padding: 20px;
-      background: white;
-      font-family: sans-serif;
-      line-height: 1.6;
-      border-bottom: 1px solid black;
-    }
+    body {
+  display: flex;
+  flex-direction: column;
+}
+  
 
     #explanation h1 {
-      margin: 10px 0 10px 0;
+      margin: 0 0 10px 0;
       font-size: 1.5em;
     }
 
     #explanation p {
       font-size: 0.95em;
-      margin-bottom: -5px;
     }
 
 #timeline-container {
-  height: 100%;
-  width: 100%;
+  margin: 0;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  max-width: 1200px;
   display: grid;
-  grid-template-columns: 100px 1fr 200px;
+  grid-template-columns: 100px 1fr 250px;
   grid-template-rows: 1fr;
+  height: 98%;
+  min-height: unset;
+  width: 100%;
 }
+
 
     #year-sidebar {
       grid-column: 1;
@@ -48,7 +54,6 @@
 
     #year-timeline {
   width: 100%;
-  height: 100%;
   display: block;
 }
 
@@ -56,7 +61,7 @@
       grid-column: 2;
       position: relative;
       overflow: hidden;
-      height: 100%;
+      height: 98%;
       width: 100%;
       display: block;
     }
@@ -64,7 +69,7 @@
     #circle-canvas {
       display: block;
       width: 100%;
-      height: 100%;
+      height: 99%;
       margin-bottom: 20px;
     }
 
@@ -74,11 +79,22 @@
       border-left: 1px solid black;
       overflow: hidden;
       height: 100%;
+        min-width: 220px;   
     }
-    #bar-chart-svg {
+
+#bar-chart-svg {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+#circle-canvas, #year-timeline {
+  width: 100%;
+  height: 99%;
+}
+
+h1 { 
+  font-size: 1em;
 }
 
     #timeline-tooltip, #bar-tooltip {
@@ -95,12 +111,7 @@
   </style>
 </head>
 <body>
-  <div id="explanation">
-    <h1>A Timeline of Cyberfeminism</h1>
-    <p>  This visualization draws from the <strong>Cyberfeminism Index</strong>, a public, crowdsourced collection of projects, artworks, events, and writings that explore intersections of feminism and technology. The data shown here was gathered by scraping entries from the Index’s website and spans decades of activity across geographies, mediums, and movements. 
-</p>
-  </div>
-
+  
   <div id="timeline-container">
     <div id="year-sidebar">
       <svg id="year-timeline"></svg>
@@ -113,129 +124,126 @@
     <div id="bar-chart">
       <svg id="bar-chart-svg"></svg>
     </div>
-
-    <div id="timeline-tooltip"></div>
+     <div id="timeline-tooltip"></div>
     <div id="bar-tooltip"></div>
   </div>
 
   <script>
-    // Select canvas and setup context
-    const canvas = document.getElementById("circle-canvas");
-    const ctx = canvas.getContext("2d");
+  // Canvas and context
+const canvas = document.getElementById("circle-canvas");
+const ctx = canvas.getContext("2d");
 const container = document.getElementById("circle-canvas-container");
 
+// Resize canvas to container
 function resizeCanvas() {
   const rect = container.getBoundingClientRect();
   canvas.width = rect.width;
   canvas.height = rect.height;
 }
+resizeCanvas();
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  drawYearTimeline();
+  drawBarChart();
+});
 
+const tooltip = document.getElementById("timeline-tooltip");
+const barTooltip = document.getElementById("bar-tooltip");
 
+let data = [];
+let circles = [];
+let yearGroups = new Map();
+let hoveredYear = null;
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
-    const tooltip = document.getElementById("timeline-tooltip");
-    const barTooltip = document.getElementById("bar-tooltip");
+const yearColors = d3.scaleOrdinal().range([
+  "#ff00ff", "#00ffff", "#ffcc00", "#ff3300", "#33cc33",
+  "#6600ff", "#00ffcc", "#cc00ff", "#3399ff", "#ff6666",
+  "#ccff00", "#ff0099", "#00ff00", "#0099ff", "#ff9933",
+  "#ff3399", "#66ffcc", "#cc66ff", "#33ff99", "#9900cc",
+  "#ffff00", "#00ccff", "#ffccff", "#ff4444", "#44ffcc"
+]);
 
-    let data = [];
-    let circles = [];
-    let yearGroups = new Map();
-    let hoveredYear = null;
+function createCirclesFromData(jsonData) {
+  data = jsonData;
+  jsonData.forEach(d => {
+    if (!yearGroups.has(d.year)) yearGroups.set(d.year, []);
+    yearGroups.get(d.year).push(d);
+  });
 
-    // Utility
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
-    }
+  const years = [...yearGroups.keys()].filter(y => /^\d{4}$/.test(y)).sort();
+  yearColors.domain(years);
 
-    function createCirclesFromData(jsonData) {
-      data = jsonData;
+  circles = data.map(d => ({
+    x: random(20, canvas.width - 20),
+    y: random(20, canvas.height - 20),
+    vx: random(-0.3, 0.3),
+    vy: random(-0.3, 0.3),
+    r: 5,
+    data: d,
+    year: d.year,
+    highlighted: false
+  }));
 
-      // Group data by year
-      jsonData.forEach(d => {
-        if (!yearGroups.has(d.year)) yearGroups.set(d.year, []);
-        yearGroups.get(d.year).push(d);
-      });
+  drawYearTimeline();
+  drawBarChart();
+}
 
-      // Assign consistent year colors
-      const years = [...yearGroups.keys()].filter(y => /^\d{4}$/.test(y)).sort();
-      yearColors.domain(years);
+function drawYearTimeline() {
+  const svg = d3.select("#year-timeline");
+  svg.selectAll("*").remove();
 
-      // Create floating circles with adjusted boundaries
-      circles = data.map(d => ({
-        x: random(20, canvas.width - 20),
-        y: random(20, canvas.height - 20),
-        vx: random(-0.3, 0.3),
-        vy: random(-0.3, 0.3),
-        r: 5,
-        data: d,
-        year: d.year,
-        highlighted: false
-      }));
+  const sidebar = document.getElementById("year-sidebar");
+  const width = sidebar.clientWidth;
+  const height = sidebar.clientHeight;
 
-      drawYearTimeline();
-      drawBarChart();
-    }
+  const cx = width * 0.5;
+  const labelX = width * 0.4;
 
-    const yearColors = d3.scaleOrdinal().range([
-      "#ff00ff", "#00ffff", "#ffcc00", "#ff3300", "#33cc33",
-      "#6600ff", "#00ffcc", "#cc00ff", "#3399ff", "#ff6666",
-      "#ccff00", "#ff0099", "#00ff00", "#0099ff", "#ff9933",
-      "#ff3399", "#66ffcc", "#cc66ff", "#33ff99", "#9900cc",
-      "#ffff00", "#00ccff", "#ffccff", "#ff4444", "#44ffcc"
-    ]);
+  const years = [...yearGroups.keys()].filter(y => /^\d{4}$/.test(y)).sort();
 
-    function drawYearTimeline() {
-      const svg = d3.select("#year-timeline");
-      svg.selectAll("*").remove();
+  const yScale = d3.scalePoint()
+    .domain(years)
+    .range([20, height - 20]);
 
-      const years = [...yearGroups.keys()].filter(y => /^\d{4}$/.test(y)).sort();
-      const height = document.getElementById("year-sidebar").clientHeight;
+  svg.append("line")
+    .attr("x1", cx).attr("x2", cx)
+    .attr("y1", 10).attr("y2", height - 10)
+    .attr("stroke", "black");
 
-      const yScale = d3.scalePoint()
-        .domain(years)
-        .range([30, height - 30]);
+  svg.selectAll("circle")
+    .data(years)
+    .enter()
+    .append("circle")
+    .attr("cx", cx)
+    .attr("cy", d => yScale(d))
+    .attr("r", Math.max(6, width * 0.05))
+    .attr("fill", d => (d === hoveredYear ? yearColors(d) : "white"))
+    .attr("stroke", d => yearColors(d))
+    .on("mouseenter", (event, year) => {
+      circles.forEach(c => c.highlighted = (c.year === year));
+      hoveredYear = year;
+    })
+    .on("mouseleave", () => {
+      circles.forEach(c => c.highlighted = false);
+      hoveredYear = null;
+    });
 
-      svg.append("line")
-        .attr("x1", 60).attr("x2", 60)
-        .attr("y1", 20).attr("y2", height - 20)
-        .attr("stroke", "black");
+  svg.selectAll("text")
+    .data(years)
+    .enter()
+    .append("text")
+    .attr("x", labelX)
+    .attr("y", d => yScale(d) + 4)
+    .attr("text-anchor", "end")
+    .text(d => d)
+    .style("font-size", `${Math.max(10, width * 0.1)}px`)
+    .style("font-weight", "bold");
+}
 
-      const nodes = svg.selectAll("circle")
-        .data(years)
-        .enter()
-        .append("circle")
-        .attr("cx", 60)
-        .attr("cy", d => yScale(d))
-        .attr("r", 6)
-        .attr("fill", d => (d === hoveredYear ? yearColors(d) : "white"))
-        .attr("stroke", d => yearColors(d))
-        .on("mouseenter", (event, year) => {
-          circles.forEach(c => c.highlighted = (c.year === year));
-          hoveredYear = year;
-        })
-        .on("mouseleave", () => {
-          circles.forEach(c => c.highlighted = false);
-          hoveredYear = null;
-        });
-
-      svg.selectAll("text")
-        .data(years)
-        .enter()
-        .append("text")
-        .attr("x", 40)
-        .attr("y", d => yScale(d) + 4)
-        .attr("text-anchor", "end")
-        .text(d => d)
-        .style("font-size", "11px")
-        .style("font-weight", "bold");
-;
-    }
-
-    function updateTimelineHighlights() {
-      d3.selectAll("#year-timeline circle")
-        .attr("fill", d => (d === hoveredYear ? yearColors(d) : "white"));
-    }
 function drawBarChart() {
   const barChart = document.getElementById("bar-chart");
   const svg = d3.select("#bar-chart-svg");
@@ -245,11 +253,6 @@ function drawBarChart() {
   const chartWidth = barChart.clientWidth;
   const chartHeight = barChart.clientHeight;
 
-  // Wait if layout hasn't completed (too small to be correct)
-  if (chartWidth < 900 || chartHeight < 500) {
-    setTimeout(drawBarChart, 50); // Try again shortly
-    return;
-  }
 
   svg.selectAll("*").remove();
 
@@ -269,8 +272,8 @@ function drawBarChart() {
     .data(yearCounts)
     .enter()
     .append("rect")
-    .attr("x", d => Math.max(chartWidth - x(d.count) - 50, 0))
-    .attr("width", d => Math.max(x(d.count), 0))
+    .attr("x", d => chartWidth - x(d.count) - 50)
+    .attr("width", d => x(d.count))
     .attr("y", d => y(d.year))
     .attr("height", y.bandwidth())
     .attr("fill", "white")
@@ -296,96 +299,103 @@ function drawBarChart() {
     .enter()
     .append("text")
     .attr("x", chartWidth - 10)
-    .attr("y", d => y(d.year) + y.bandwidth() / 4 + 8)
+    .attr("y", d => y(d.year) + y.bandwidth() / 2 + 4)
     .attr("text-anchor", "end")
     .text(d => d.year)
     .style("font-size", "11px")
     .style("font-weight", "bold");
 }
 
+function drawCircles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let c of circles) {
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+    ctx.fillStyle = c.highlighted ? yearColors(c.year) : "white";
+    ctx.strokeStyle = c.highlighted ? "black" : yearColors(c.year);
+    ctx.lineWidth = c.highlighted ? 1.5 : 1;
+    ctx.fill();
+    ctx.stroke();
+  }
+}
 
+function updatePositions() {
+  for (let c of circles) {
+    c.x += c.vx;
+    c.y += c.vy;
 
-    function drawCircles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let c of circles) {
-        ctx.beginPath();
-        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-        ctx.fillStyle = c.highlighted ? yearColors(c.year) : "white";
-        ctx.strokeStyle = c.highlighted ? "black" : yearColors(c.year);
-        ctx.lineWidth = c.highlighted ? 1.5 : 1;
-        ctx.fill();
-        ctx.stroke();
-      }
+    // Bounce left or right
+    if (c.x - c.r <= 0 || c.x + c.r >= canvas.width) {
+      c.vx *= -1;
+      c.x += c.vx;
     }
 
-    function updatePositions() {
-      for (let c of circles) {
-        c.x += c.vx;
-        c.y += c.vy;
-        if (c.x < c.r || c.x > canvas.width - c.r) c.vx *= -1;
-        if (c.y < c.r || c.y > canvas.height - c.r) c.vy *= -1;
-      }
+    // Bounce top or bottom
+    if (c.y - c.r <= 0 || c.y + c.r >= canvas.height) {
+      c.vy *= -1;
+      c.y += c.vy;
     }
+  }
+}
 
-    function detectHover(mx, my) {
-      let found = false;
-      hoveredYear = null;
 
-      for (let c of circles) {
-        const dist = Math.hypot(mx - c.x, my - c.y);
-        if (dist < c.r + 5) {
-          hoveredYear = c.year;
-          tooltip.style.display = 'block';
-          tooltip.innerHTML = `
-            <strong>${c.data.project || 'Untitled'}</strong><br>
-            <em>${(c.data.authors || []).join(', ')}</em><br>
-            <small>${c.data.year}</small><br><br>
-            ${c.data.excerpt || ''}
-          `;
-          
-          // Position relative to viewport
-          const rect = canvas.getBoundingClientRect();
-          tooltip.style.left = `${rect.left + c.x + 12}px`;
-          tooltip.style.top = `${rect.top + c.y + 12}px`;
-          
-          found = true;
-          break;
-        }
-      }
 
-      if (!found) {
-        tooltip.style.display = 'none';
-      }
-    }
-
-    function animate() {
-      updatePositions();
-      drawCircles();
-      updateTimelineHighlights();
-      requestAnimationFrame(animate);
-    }
-
-    canvas.addEventListener("mousemove", (e) => {
+function detectHover(mx, my) {
+  hoveredYear = null;
+  for (let c of circles) {
+    const dist = Math.hypot(mx - c.x, my - c.y);
+    if (dist < c.r + 5) {
+      hoveredYear = c.year;
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = `
+        <strong>${c.data.project || 'Untitled'}</strong><br>
+        <em>${(c.data.authors || []).join(', ')}</em><br>
+        <small>${c.data.year}</small><br><br>
+        ${c.data.excerpt || ''}
+      `;
       const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      detectHover(x, y);
-      circles.forEach(c => c.highlighted = (c.year === hoveredYear));
-    });
+      tooltip.style.left = `${rect.left + c.x + 12}px`;
+      tooltip.style.top = `${rect.top + c.y + 12}px`;
+      return;
+    }
+  }
+  tooltip.style.display = 'none';
+}
 
-    // Load and kick off with error handling
-    fetch("cyberfeminism_manifesto_refs.json")
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.json();
-      })
-      .then(json => {
-        createCirclesFromData(json);
-        animate();
-      })
-      .catch(error => {
-        console.error('Error loading data:', error);
-      });
+function updateTimelineHighlights() {
+  d3.selectAll("#year-timeline circle")
+    .attr("fill", d => (d === hoveredYear ? yearColors(d) : "white"));
+}
+
+function animate() {
+  updatePositions();
+  drawCircles();
+  updateTimelineHighlights();
+  requestAnimationFrame(animate);
+}
+
+canvas.addEventListener("mousemove", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  detectHover(x, y);
+  circles.forEach(c => c.highlighted = (c.year === hoveredYear));
+});
+
+// Load data
+fetch("cyberfeminism_manifesto_refs.json")
+  .then(res => {
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res.json();
+  })
+  .then(json => {
+    createCirclesFromData(json);
+    animate();
+  })
+  .catch(error => {
+    console.error('Error loading data:', error);
+  });
+
   </script>
 </body>
 </html>

@@ -733,3 +733,11 @@ iframe {
 @keyframes blink {
   50% { background-color: transparent; }
 }
+
+.window-content::-webkit-scrollbar {
+  display: none;
+}
+
+.window-content {
+  scrollbar-width: none;
+}

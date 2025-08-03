@@ -186,7 +186,6 @@
   </div>
 </div>
 
-
 <!-- Window: Design -->
 <div class="window" id="window-designs">
   <div class="window-header">
@@ -197,8 +196,14 @@
     </div>
   </div>
 
-  <!-- Add a wrapper around the iframe -->
-  <div class="window-content" style="width: 100%; height: 100%; overflow: auto;">
+  <div class="window-content" style="
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  ">
     <iframe 
       src="timeline.html" 
       style="width: 1200px; height: 800px; border: none;" 
