@@ -270,10 +270,12 @@ p {
   width: 100%;
   height: 100%;
   padding-top: 50px;
+  padding-left: 0px;
+  padding-right: 0px;
   padding-bottom: 40px;
   display: block; 
   overflow: hidden;
-  background-color: rgb(19, 67, 189);
+  background-color: #54B3B3;
   background-image: none;
 
 }
@@ -297,7 +299,6 @@ p {
   outline: none;
   display: block;
   background: transparent; /* Just in case */
-  image-rendering: pixelated; /* Keeps pixel art crisp if scaled */
 
 
 }
@@ -322,8 +323,8 @@ p {
   resize: both;
   top: 50%;
   left: 50%;
-  width: 1000px;
-  height: 500px;
+  width: 400px;
+  height: 300px;
   transform: translate(-50%, -50%);
   background: white;
   border: 2px solid black;
@@ -339,7 +340,7 @@ s
 .window-header {
   position: sticky;
   top: 0;
-  background: lightgray;
+  background: rgb(237, 237, 237);
   padding: 6px 10px;
   display: flex;
   justify-content: space-between;
@@ -455,7 +456,7 @@ s
   font-family: 'DotGothic16', monospace;
   font-size: 14px;
   background: rgb(255, 255, 255);
-  color: #0000c6;
+  color: #01010f;
   padding: 1rem;
   border-radius: 4px;
   line-height: 1.5;
@@ -466,7 +467,7 @@ s
 
 #rhetorical-cursor {
   display: inline-block;
-  background: #33ff33;
+  background: rgb(23, 4, 230);
   width: 8px;
   height: 1em;
   vertical-align: bottom;
@@ -694,4 +695,27 @@ iframe {
   height: auto; 
   display: block; 
   margin: 1rem auto; 
+}
+
+/* Intro window text */
+#intro-text {
+  display: inline-block;
+  font-family: 'DotGothic16', monospace; /* Matches your retro vibe */
+  font-size: 16px;
+  color: black; /* Change as needed */
+  line-height: 1.6;
+  white-space: pre-wrap; /* Preserves newlines (\n) */
+  padding: 20px;
+}
+
+/* Blinking cursor */
+#intro-cursor {
+  display: inline-block;
+  width: 8px;
+  background-color: rgb(29, 7, 227);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { background-color: transparent; }
 }

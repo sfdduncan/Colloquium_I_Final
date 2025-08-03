@@ -14,24 +14,7 @@ const nextSectionButton = document.getElementById('next-section-button');
 
 
 
-// Dialogue text
-const panels = [
-  "Welcome to my first iteration of documenting my evolving research interests. A lot of this is still fresh, raw, and in formation—but I hope it offers a glimpse into the themes that currently anchor my thinking.",
-  
-  "I’ve always believed that no matter what gets built—buildings, cities, infrastructures—humans define space by how they inhabit it, resist it, or reshape it to serve them.",
-  
-  "Architecture is never the end of the story. Technology, too, was supposed to expand this story: to free us, to help us create new ways of being in space, to grant us more agency and more liberty.",
-  
-  "But what we've received instead is something far more complex. We live in a world saturated with algorithms and smart machines, woven into our environments and bodies. While this proliferation has enabled forms of liberation, it has also reproduced deeper systems of surveillance and control. The promises of empowerment feel increasingly hollow. Our ability to simply exist in space—on our terms—has been eroded. And with that, we’ve also lost a sense of authorship over the spaces we create.",
-
-  "This is where the body comes in. I’m drawn to questions of how technology is not just around us, but within us. Embodied technology—cyborgs, sensors, interfaces—exposes how power manifests through our most personal experiences. It’s not just about spatial politics anymore, it’s about bodily autonomy.",
-  
-  "My design practice is one that looks for ways to reclaim both: the ability to feel, to move, to resist, to reprogram space through the body. What can design do when it prioritizes lived experience over optimization? What happens when we center the sensorial, the personal, the political body in our systems of design?",
-
-  "This is the framework I’m building toward: a practice rooted in reclaiming space, reclaiming our bodies, and reclaiming control. A speculative, critical, and sometimes messy design approach that asks: What if we built systems that actually centered people? What if we refused to be optimized? What if we designed for refusal, for pleasure, for protest, for autonomy?",
-
-  "So come explore. Click through. Read the thoughts. View the experiments. And begin to imagine with me how we might take back control—of space, of technology, and of ourselves."
-];
+// Dialogue t
 
 let currentPanel = 0;
 
@@ -66,7 +49,6 @@ function updatePanel(index) {
   }
 }
 
-// Handle login → loading → section1
 enterButton.addEventListener('click', () => {
   loginScreen.classList.add('hidden');
   loadingScreen.classList.remove('hidden');
@@ -77,31 +59,38 @@ enterButton.addEventListener('click', () => {
 
   setTimeout(() => {
     loadingScreen.classList.add('hidden');
-    section1.classList.remove('hidden');
-    updatePanel(0);
-  }, 3100);
-});
 
-// Arrows
-nextArrow?.addEventListener('click', () => {
-  if (currentPanel < panels.length - 1) {
-    updatePanel(currentPanel + 1);
-  }
-});
-
-backArrow?.addEventListener('click', () => {
-  if (currentPanel > 0) {
-    updatePanel(currentPanel - 1);
-  }
-});
-
-// Section transition
-nextSectionButton?.addEventListener('click', () => {
-  section1.classList.add('fade-out');
-  setTimeout(() => {
-    section1.classList.add('hidden');
+    // Directly show the desktop
+    const section2 = document.getElementById('section2');
     section2.classList.remove('hidden');
-  }, 1000); // matches fade-out CSS
+
+    // Scatter windows randomly
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    document.querySelectorAll('.window').forEach(win => {
+      const left = Math.random() * (windowWidth - 400);
+      const top = Math.random() * (windowHeight - 300);
+
+      win.style.display = 'block';
+      win.style.left = `${left}px`;
+      win.style.top = `${top}px`;
+      win.style.transform = 'none';
+    });
+
+    // Show dock
+    const dock = document.getElementById('mac-dock');
+    if (dock) dock.style.display = 'flex';
+
+    // Show intro window (create this if it doesn’t exist yet)
+    const introWin = document.getElementById('window-intro');
+    if (introWin) {
+      introWin.style.display = 'block';
+      introWin.style.zIndex = Date.now();
+      typeIntro(introText); // <-- Trigger the typing animation here
+
+    }
+  }, 3100);
 });
 
 // Load 3D model into login screen (can be removed if no longer needed)
@@ -227,6 +216,8 @@ document.querySelectorAll('.desktop-icon').forEach(icon => {
   });
 });
 
+
+
 // Close window on X button click
 document.querySelectorAll('.window-close').forEach(button => {
   button.addEventListener('click', (e) => {
@@ -274,6 +265,37 @@ document.querySelectorAll('.window-maximize').forEach(button => {
   });
 });
 
+// This is for my introduction stuff 
+
+const introText = 
+  "Welcome to my first iteration of documenting my evolving research interests. A lot of this is still fresh, raw, and in formation—but I hope it offers a glimpse into the themes that currently anchor my thinking.\n\n" +
+  "I’ve always believed that no matter what gets built—buildings, cities, infrastructures—humans define space by how they inhabit it, resist it, or reshape it to serve them.\n\n" +
+  "Architecture is never the end of the story. Technology, too, was supposed to expand this story: to free us, to help us create new ways of being in space, to grant us more agency and more liberty.\n\n" +
+  "But what we've received instead is something far more complex. We live in a world saturated with algorithms and smart machines, woven into our environments and bodies. While this proliferation has enabled forms of liberation, it has also reproduced deeper systems of surveillance and control. The promises of empowerment feel increasingly hollow. Our ability to simply exist in space—on our terms—has been eroded. And with that, we’ve also lost a sense of authorship over the spaces we create.\n\n" +
+  "This is where the body comes in. I’m drawn to questions of how technology is not just around us, but within us. Embodied technology—cyborgs, sensors, interfaces—exposes how power manifests through our most personal experiences. It’s not just about spatial politics anymore, it’s about bodily autonomy.\n\n" +
+  "My design practice is one that looks for ways to reclaim both: the ability to feel, to move, to resist, to reprogram space through the body. What can design do when it prioritizes lived experience over optimization? What happens when we center the sensorial, the personal, the political body in our systems of design?\n\n" +
+  "This is the framework I’m building toward: a practice rooted in reclaiming space, reclaiming our bodies, and reclaiming control. A speculative, critical, and sometimes messy design approach that asks: What if we built systems that actually centered people? What if we refused to be optimized? What if we designed for refusal, for pleasure, for protest, for autonomy?\n\n" +
+  "So come explore. Click through. Read the thoughts. View the experiments. And begin to imagine with me how we might take back control—of space, of technology, and of ourselves.";
+
+const introTyped = document.getElementById('intro-typed');
+const introCursor = document.getElementById('intro-cursor');
+
+function typeIntro(text) {
+  let i = 0;
+  clearInterval(typingInterval);
+  introTyped.textContent = '';
+  introCursor.style.display = 'inline-block';
+
+  typingInterval = setInterval(() => {
+    introTyped.textContent += text.charAt(i);
+    i++;
+    if (i === text.length) {
+      clearInterval(typingInterval);
+      introCursor.style.display = 'none';
+    }
+  }, 25);
+}
+
 
 // this is for my rhetorical stuff 
 
@@ -302,13 +324,23 @@ function typeRhetorical(text) {
 typeRhetorical(rhetoricalText);
 
 
-icon.addEventListener('dblclick', () => {
-  const win = document.getElementById('window-rhetorical');
-  if (win) {
-    win.style.display = 'block';
-    win.style.zIndex = Date.now();
-    typeRhetorical(rhetoricalText); // trigger typing here
-  }
+document.querySelectorAll('.desktop-icon').forEach(icon => {
+  icon.addEventListener('dblclick', () => {
+    const windowId = icon.dataset.window;
+    const win = document.getElementById(windowId);
+
+    if (win) {
+      win.style.display = 'block';
+      win.style.zIndex = Date.now();
+
+      if (windowId === 'window-intro') {
+        typeIntro(introText); // Will restart cleanly every time
+      }
+      if (windowId === 'window-rhetorical') {
+        typeRhetorical(rhetoricalText);
+      }
+    }
+  });
 });
 
 

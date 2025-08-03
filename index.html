@@ -46,19 +46,6 @@
     </div>
   </div>
 
-  <!-- Section 1: Typewriter Panel -->
-  <div id="section1" class="panel retro-panel hidden">
-    <div id="textbox-container">
-      <p id="typewriter-text"></p>
-      <div id="nav-arrows">
-        <span id="back-arrow">←</span>
-        <span id="next-arrow">→</span>
-      </div>
-      <!-- New section transition button -->
-        <button id="next-section-button" class="nav-button hidden">Onto the Next Section</button>
-    </div>
-            <img id="panel-avatar" src="avatar.png"/>
-  </div>
 
 
 
@@ -72,7 +59,7 @@
       <div class="dropdown-menu">
         <div class="dropdown-item active">About Me</div>
         <div class="dropdown-item">Need a Guide?</div>
-        <div class="dropdown-item">Log Out… <span class="shortcut">⌘Q</span></div>
+        <div class="dropdown-item">Log Out… <span class="shortcut">Q</span></div>
       </div>
     </div>
 
@@ -86,68 +73,80 @@
   </div>
   </div>
 
+  <!-- Column 1 (Rightmost) -->
 <!-- Icon Container -->
 <div id="desktop-area">
-  <p style="margin-left: 5vw; color:whitesmoke; font-weight: 400;">**Hint**: Read the folders from Left to Right </p>
-  <div class="desktop-icon" data-window="window-network" style="left: 400px; top: 480px;" draggable="true">
-    <img src="pixel_folder.png" alt="Network Map"/>
-    <p>Network Map</p>
-    <div id="tooltip" style="position: absolute; display: none; color: white; background: black; padding: 4px; border-radius: 4px;"></div>
 
+  <!-- Column 1 -->
+  <div class="desktop-icon" data-window="window-intro" style="position: absolute; right: 180px; top: 80px;" draggable="true">
+    <img src="pixel_folder.png" alt="Introduction Window" />
+    <p>Introduction to My Work!</p>
   </div>
 
-  <div class="desktop-icon" data-window="window-readings" style="left: 240px; top: 240px;" draggable="true">
+  <div class="desktop-icon" data-window="window-readings" style="position: absolute; right: 180px; top: 200px;" draggable="true">
     <img src="pixel_folder.png" alt="Essential Readings" />
     <p>Essential Readings</p>
   </div>
 
-  <div class="desktop-icon" data-window="window-designs" style="left: 100px; top: 250px;" draggable="true">
+  <div class="desktop-icon" data-window="window-designs" style="position: absolute; right: 180px; top: 320px;" draggable="true">
     <img src="pixel_folder.png" alt="A Timeline of Cyberfeminist Literature" />
     <p>More Theoretical Backing</p>
   </div>
 
-  <div class="desktop-icon" data-window="window" style="left: 870px; top: 500px;" draggable="true">
-    <img src="pixel_folder.png" alt="Essential Readings" />
-    <p>Design Inspo</p>
+  <div class="desktop-icon" data-window="window-network" style="position: absolute; right: 180px; top: 440px;" draggable="true">
+    <img src="pixel_folder.png" alt="Network Map"/>
+    <p>Network Map</p>
   </div>
-
-  <div class="desktop-icon" data-window="window-community" style="left: 330px; top: 120px;" draggable="true">
-    <img src="pixel_folder.png" alt="Community of Practice" />
-    <p>Community of Practice</p>
-  </div>
-
-  <div class="desktop-icon" data-window="window-methods" style="left: 560px; top: 360px;" draggable="true">
+  <!-- Column 2 -->
+  <div class="desktop-icon" data-window="window-methods" style="position: absolute; right: 100px; top: 80px;" draggable="true">
     <img src="pixel_folder.png" alt="Methods of Madness" />
     <p>Methods of Madness</p>
   </div>
 
-  <div class="desktop-icon" data-window="window-experiments" style="left: 820px; top: 120px;" draggable="true">
+  <div class="desktop-icon" data-window="window-experiments" style="position: absolute; right: 100px; top: 200px;" draggable="true">
     <img src="pixel_folder.png" alt="Some Experimental Stuff" />
     <p>Some Experimental Stuff</p>
   </div>
 
-  <div class="desktop-icon" data-window="window-rhetorical" style="left: 1040px; top: 260px;" draggable="true">
+  <div class="desktop-icon" data-window="window-rhetorical" style="position: absolute; right: 100px; top: 320px;" draggable="true">
     <img src="pixel_folder.png" alt="What am I getting at?" />
     <p>What am I getting at?</p>
   </div>
- <div class="desktop-icon" data-window="window-projectidea" style="left: 1190px; top: 400px;" draggable="true">
+
+  <div class="desktop-icon" data-window="window-projectidea" style="position: absolute; right: 100px; top: 440px;" draggable="true">
     <img src="pixel_folder.png" alt="Project Proposal?" />
-    <p>Potential Project Proposal?</p>
+    <p>Project Proposal?</p>
+  </div>
+
+  <div class="desktop-icon" data-window="window-design" style="position: absolute; right: 100px; top: 560px;" draggable="true">
+    <img src="pixel_folder.png" alt="Design Inspo" />
+    <p>Design Inspo</p>
   </div>
 </div>
+
+
   <!-- Bottom Bar -->
   <div id="mac-dock">
     <!-- === Mac Dock-Style Bottom Bar === -->
-<div id="mac-dock" style="display: none;">
-  <div class="dock-icon"><br>Readings</div>
-  <div class="dock-icon"><br>Community</div>
-  <div class="dock-icon"><br>Experiments</div>
-  <div class="dock-icon"><br>Timeline</div>
-  <div class="dock-icon"><br>Network</div>
-  <div class="dock-icon"><br>Methods</div>
-  <div class="dock-icon"><br>Rhetoric</div>
+
 </div>
 
+  </div>
+</div>
+
+<!-- Window: Introduction to my work -->
+
+<div class="window" id="window-intro">
+  <div class="window-header">
+    <span class="window-title">Intro</span>
+    <div class="window-buttons">
+      <button class="window-maximize">⛶</button>
+      <button class="window-close">X</button>
+    </div>
+  </div>
+    <p id="intro-text">
+      <span id="intro-typed"></span><span id="intro-cursor">|</span>
+    </p>
   </div>
 </div>
 
@@ -210,24 +209,6 @@
 </div>
 
 
-<!-- Window: Community -->
-<div class="window" id="window-community">
-  <div class="window-header">
-    <span class="window-title">Community in this field</span>
-    <div class="window-buttons">
-      <button class="window-maximize">⛶</button>
-      <button class="window-close">X</button>
-    </div>
-  </div>
-  <div class="window-content">
-    <div id="community-gallery-wrapper">
-      <button id="community-arrow-left" class="community-arrow">&#8592;</button>
-      <div id="community-gallery"></div>
-      <button id="community-arrow-right" class="community-arrow">&#8594;</button>
-    </div>
-  </div>
-</div>
-
 
 <!-- Window: Methods -->
 <div class="window" id="window-methods">
@@ -282,14 +263,17 @@
 <!-- Design Inspiration Window -->
 <div class="window" id="window-design">
   <div class="window-header">
-    <span class="window-title">Design Inspo</span>
+    <span class="window-title">Community & Design Inspo</span>
     <div class="window-buttons">
       <button class="window-maximize">⛶</button>
       <button class="window-close">X</button>
     </div>
   </div>
-  <div class="window-content">
-    <div class="image-gallery">
+    <iframe 
+    src="3DSphere/sphere.html"
+    style="width: 100%; height: 100%; border: none;"
+    title="Sphere Gallery">
+  </iframe>
 
     </div>
   </div>
@@ -326,34 +310,7 @@
 </div>
 
 
-<!-- === About Me Window === -->
-<div class="window about-me-window" id="window-about-me" style="display: none;">
-  <div class="window-header">
-    <span class="window-title">About Me</span>
-    <div class="window-buttons">
-      <button class="window-maximize">⛶</button>
-      <button class="window-close" onclick="closeWindow('window-about-me')">X</button>
-    </div>
-  </div>
-  <div class="window-content about-me-content">
-    <img src="avatar.png" class="about-icon" alt="Face Icon" />
-    <h1>Steven Duncan</h1>
-    <p class="about-subtext">Designer • Researcher • Urbanist</p>
-    <p style="text-align: center;">I create things at the intersection of technology, space, and protest. Below are a few of my recent explorations:</p>
 
-    <div class="project-gallery">
-      <div class="project-entry">
-        <h3>Project Title One</h3>
-        <p>Short description of the project and what it does or explores.</p>
-      </div>
-      <div class="project-entry">
-        <h3>Project Title Two</h3>
-        <p>Short description of the project and your role in it.</p>
-      </div>
-      <!-- Add more as needed -->
-    </div>
-  </div>
-</div>
 
 
 

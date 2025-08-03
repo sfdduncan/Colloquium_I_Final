@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>3D Sphere Photo Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background-color: #f8f8f4;
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .element {
+      width: 120px;
+      height: 120px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      background: white;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .element:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .element img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TrackballControls.js"></script>
+</head>
+<body>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
+    camera.position.z = 1000;
+
+    const renderer = new THREE.CSS3DRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new THREE.TrackballControls(camera, renderer.domElement);
+    controls.rotateSpeed = 1.5;
+    controls.minDistance = 500;
+    controls.maxDistance = 2000;
+
+    // === Create a rotating group for the sphere ===
+    const sphereGroup = new THREE.Group();
+    scene.add(sphereGroup);
+
+    const imageFolder = 'imgs_inspo/';
+    const filenames = [
+      "40_LIUC_GropiusBau_EthersBloom_0177.jpg",
+      "Amy_Freeman.jpg",
+      "Data_Relations.jpg",
+      "Drew.jpg",
+      "Elise-Ortiou-Campion-Selphish-vernissage122_1.jpg",
+      "Elizabeth.png",
+      "Heidegger.png",
+      "Kaoru.png",
+      "Lauren_lee.jpg",
+      "Meagan-Byrne.jpg",
+      "Mimi_Onuaha.jpg",
+      "Paolo.jpg",
+      "Screenshot 2025-08-03 163406.png",
+      "Screenshot 2025-08-03 163453.png",
+      "Screenshot 2025-08-03 164840.png",
+      "Screenshot 2025-08-03 170346.png",
+      "SecretGard.png",
+      "Shoshana.png",
+      "Stephanie.png",
+      "Trebor.jpg",
+      "Troy.jpg",
+      "VioletWhitney.jpeg",
+      "avita.jpg",
+      "calling-myself-self_orig.png",
+      "chia_amisola.jpg",
+      "chia_work.png",
+      "conversationswtihBina48.png",
+      "counterCartographies_alaska.jpg",
+      "cyborg-art-copy-1698862288885.jpg",
+      "embodied__5431_web.jpg",
+      "gold-plated-glamcam.jpg",
+      "hello_Someone.jpg",
+      "hill-agency-video-still.jpg",
+      "innchanted1.jpg",
+      "mo_in-absentia-geography-of-domination_03_rt.jpeg",
+      "mo_natural-or-where-are-we-allowed-to-be-4_01_rt.jpg",
+      "neveralone1.jpg",
+      "pheobe_watson.jpg"
+    ];
+
+    const radius = 400;
+
+    filenames.forEach((filename, i) => {
+      const element = document.createElement('div');
+      element.className = 'element';
+
+      const img = document.createElement('img');
+      img.src = `${imageFolder}${filename}`;
+      element.appendChild(img);
+
+      const objectCSS = new THREE.CSS3DObject(element);
+
+      const phi = Math.acos(-1 + (2 * i) / filenames.length);
+      const theta = Math.sqrt(filenames.length * Math.PI) * phi;
+
+      objectCSS.position.x = radius * Math.cos(theta) * Math.sin(phi);
+      objectCSS.position.y = radius * Math.sin(theta) * Math.sin(phi);
+      objectCSS.position.z = radius * Math.cos(phi);
+
+      const vector = new THREE.Vector3().copy(objectCSS.position).multiplyScalar(2);
+      objectCSS.lookAt(vector);
+
+      sphereGroup.add(objectCSS);
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      sphereGroup.rotation.y += 0.002; // auto-rotate
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
