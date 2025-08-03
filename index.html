@@ -126,7 +126,6 @@
 
 
   <!-- Bottom Bar -->
-  <div id="mac-dock">
     <!-- === Mac Dock-Style Bottom Bar === -->
 
 </div>
@@ -242,23 +241,44 @@
   </div>
 </div>
 
-<!-- Window: Essential Readings -->
 <div class="window" id="window-experiments">
   <div class="window-header">
     <span class="window-title">Experiments</span>
     <div class="window-buttons">
       <button class="window-maximize">⛶</button>
-      <button class="window-close">X</button>
+      <button class="window-close" onclick="closeWindow('window-experiments')">X</button>
     </div>
   </div>
-  <div class="window-content">
-    <div class="image-gallery">
-      <video src="network_video.mp4" controls muted playsinline></video>
-      <video src="timeline.mp4" controls muted playsinline></video>
-      <img src="sd3712_PrecedentStudy_Duncan-1.png" alt="Experiment 3">
-    </div>
+  <div class="window-content" style="overflow-y: auto; padding: 20px 5vw 60px; box-sizing: border-box; font-family: 'DotGothic16', monospace; font-size: 14px; line-height: 1.6; color: #111;">
+
+    <p>This semester, I experimented with several different interactive visualizations and projection formats. A central inspiration for this work was <strong>Lauren Lee McCarthy</strong>, whose project <em>Surrogate</em> deeply influenced the direction of my explorations.</p>
+
+    <p>In <em>Surrogate</em>, McCarthy offers herself as a human surrogate for those interested in having children, raising questions around bodily autonomy, algorithmic intimacy, emotional labor, and the increasingly porous boundaries between human and machine. Her work blends performance, code, and critical reflection, and it grounded many of the concerns I wanted to explore through my own visual and interactive designs.</p>
+
+    <p>The following experiments all relate to, respond to, or take inspiration from <em>Surrogate</em> and McCarthy’s broader body of work:</p>
+
+    <hr style="margin: 1.5rem 0;">
+
+    <p><strong>Network Visualization:</strong></p>
+    <video src="network_video.mp4" controls muted playsinline style="width: 80%; max-width: 600px; margin: 0 auto 1rem; display: block;"></video>
+    <p>This is a first iteration of an interactive network map built to examine the social, technological, and institutional relationships embedded within <em>Surrogate</em>. It attempts to visualize the complex mesh of actors—including the artist, institutions, technologies, and ideologies—that support or complicate the project’s narrative.</p>
+
+    <hr style="margin: 2rem 0;">
+
+    <p><strong>Chronopolitical Timeline:</strong></p>
+    <video src="timeline.mp4" controls muted playsinline style="width: 80%; max-width: 600px; margin: 0 auto 1rem; display: block;"></video>
+    <p>This projection situates <em>Surrogate</em> within a broader temporal context, mapping key cultural, political, and technological events that parallel the themes McCarthy engages. It’s a prototype for a timeline interface that could allow viewers to trace correlations between digital governance, reproductive rights, and embodiment over time.</p>
+
+    <hr style="margin: 2rem 0;">
+
+    <p><strong>Precedent Study Collage:</strong></p>
+    <img src="sd3712_PrecedentStudy_Duncan-1.png" alt="Precedent Study" style="width: 80%; max-width: 600px; margin: 0 auto 1rem; display: block;" />
+    <p>A more visual exploration, this collage breaks down specific formal and thematic choices made by McCarthy. It served as a reference point during the development of my own aesthetic and conceptual language across projects.</p>
+
   </div>
 </div>
+
+
 
 <!-- Design Inspiration Window -->
 <div class="window" id="window-design">
