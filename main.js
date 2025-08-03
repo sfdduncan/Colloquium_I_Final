@@ -204,6 +204,8 @@ window.addEventListener('load', () => {
 
 // This part styles my popup windows 
 
+let zIndexCounter = 3000;
+
 // Open window on icon click
 document.querySelectorAll('.desktop-icon').forEach(icon => {
   icon.addEventListener('dblclick', () => {
@@ -211,7 +213,7 @@ document.querySelectorAll('.desktop-icon').forEach(icon => {
     const win = document.getElementById(windowId);
     if (win) {
       win.style.display = 'block';
-      win.style.zIndex = Date.now(); // Bring to front
+      win.style.zIndex = ++zIndexCounter; // always one above the rest
     }
   });
 });
@@ -261,9 +263,22 @@ document.querySelectorAll('.window').forEach(win => {
 document.querySelectorAll('.window-maximize').forEach(button => {
   button.addEventListener('click', e => {
     const win = e.target.closest('.window');
-    win.classList.toggle('fullscreen');
+    const isFullscreen = win.classList.toggle('fullscreen');
+
+    if (isFullscreen) {
+      // Remove inline styles set by dragging
+      win.style.left = '';
+      win.style.top = '';
+      win.style.transform = '';
+    } else {
+      // Optional: restore to default centered state (non-fullscreen)
+      win.style.left = '50%';
+      win.style.top = '50%';
+      win.style.transform = 'translate(-50%, -50%)';
+    }
   });
 });
+
 
 // This is for my introduction stuff 
 
