@@ -712,12 +712,25 @@ iframe {
   display: none;             /* Chrome, Safari, Edge */
 }
 
-#window-projectidea .window-content img { 
+#window-projectidea .window-content .img-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* spacing between images */
+  flex-wrap: wrap; /* wrap if too narrow */
+  margin: 1rem 0;
+}
 
-  max-width: 50%; 
-  height: auto; 
-  display: block; 
-  margin: 1rem auto; 
+#window-projectidea .window-content .img-row img {
+  max-width: 35%;
+  height: auto;
+  margin: 0;
+  display: block;
+  border-radius: 8px;
+}
+
+li {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 /* Intro window text */
