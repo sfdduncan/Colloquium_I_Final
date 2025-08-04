@@ -347,7 +347,7 @@ p {
   height: 200px;
   transform: translate(-50%, -50%);
   background: white;
-  border: 2px solid black;
+  border: 1px solid black;
   box-shadow: 6px 6px 0px black;
   display: none;
   z-index: 100;
@@ -366,7 +366,7 @@ s
   justify-content: space-between;
   align-items: center;
   cursor: move;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
   z-index: 10; /* Ensures it stays on top of scrolling content */
 }
 
@@ -400,7 +400,7 @@ s
 
 .window-buttons button {
   background: white;
-  border: 2px solid black;
+  border: 1.5px solid black;
   font-family: monospace;
   font-weight: bold;
   width: 24px;
