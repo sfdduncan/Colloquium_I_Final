@@ -339,8 +339,8 @@ p {
   resize: both;
   top: 50%;
   left: 50%;
-  width: 400px;
-  height: 300px;
+  width: 300px;
+  height: 200px;
   transform: translate(-50%, -50%);
   background: white;
   border: 2px solid black;

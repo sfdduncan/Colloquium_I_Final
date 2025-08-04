@@ -82,7 +82,6 @@ enterButton.addEventListener('click', () => {
     const dock = document.getElementById('mac-dock');
     if (dock) dock.style.display = 'flex';
 
-    // Show intro window (create this if it doesn’t exist yet)
     const introWin = document.getElementById('window-intro');
     if (introWin) {
       introWin.style.display = 'block';
