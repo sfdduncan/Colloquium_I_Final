@@ -2,12 +2,12 @@
   box-sizing: border-box;
 }
 
-/* These are fonts */ 
-.press-start-2p-regular {
-  font-family: "Press Start 2P", system-ui;
+.jersey-25-regular {
+  font-family: "Jersey 25", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
+
 
 
 .dotgothic16-regular {
@@ -35,14 +35,16 @@ html, body {
 h1 { 
   text-align: center;
   padding: 20px;
-  line-height: 1.5;
+  font-family: 'Jersey 25', monospace;
+  letter-spacing: 3px;
+  font-size: 3rem;
+  color: #faf9f6;
 }
 
 h2 { 
-
   font-family:'DotGothic16', monospace; 
-  font-weight: 400; 
   font-style: normal; 
+  color: #faf9f6;
 }
 
 
