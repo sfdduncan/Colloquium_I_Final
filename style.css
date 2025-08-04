@@ -417,7 +417,7 @@ s
   width: 100vw;
   height: 100vh;
   transform: none !important; /* Prevent it from staying shifted by translate */
-  z-index: 999;
+  z-index: 5000;
 }
 
 
@@ -558,7 +558,7 @@ iframe {
 }
 
 .window-maximize { 
-  z-index: 4000;
+  z-index: 400;
 }
 
 .menu-left {
