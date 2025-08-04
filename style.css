@@ -556,6 +556,9 @@ iframe {
   padding: 0;
 }
 
+.window-maximize { 
+  z-index: 4000;
+}
 
 .menu-left {
   display: flex;
