@@ -21,7 +21,11 @@
       background: white;
       overflow: hidden;
       transition: transform 0.3s;
+        pointer-events: none; /* allow camera controls */
+
     }
+
+
 
     .element:hover {
       transform: scale(1.1);
@@ -59,48 +63,71 @@
     scene.add(sphereGroup);
 
     const imageFolder = 'imgs_inspo/';
-    const filenames = [
-      "40_LIUC_GropiusBau_EthersBloom_0177.jpg",
-      "Amy_Freeman.jpg",
-      "Data_Relations.jpg",
-      "Drew.jpg",
-      "Elise-Ortiou-Campion-Selphish-vernissage122_1.jpg",
-      "Elizabeth.png",
-      "Heidegger.png",
-      "Kaoru.png",
-      "Lauren_lee.jpg",
-      "Meagan-Byrne.jpg",
-      "Mimi_Onuaha.jpg",
-      "Paolo.jpg",
-      "Screenshot 2025-08-03 163406.png",
-      "Screenshot 2025-08-03 163453.png",
-      "Screenshot 2025-08-03 164840.png",
-      "Screenshot 2025-08-03 170346.png",
-      "SecretGard.png",
-      "Shoshana.png",
-      "Stephanie.png",
-      "Trebor.jpg",
-      "Troy.jpg",
-      "VioletWhitney.jpeg",
-      "avita.jpg",
-      "calling-myself-self_orig.png",
-      "chia_amisola.jpg",
-      "chia_work.png",
-      "conversationswtihBina48.png",
-      "counterCartographies_alaska.jpg",
-      "cyborg-art-copy-1698862288885.jpg",
-      "embodied__5431_web.jpg",
-      "gold-plated-glamcam.jpg",
-      "hello_Someone.jpg",
-      "hill-agency-video-still.jpg",
-      "innchanted1.jpg",
-      "mo_in-absentia-geography-of-domination_03_rt.jpeg",
-      "mo_natural-or-where-are-we-allowed-to-be-4_01_rt.jpg",
-      "neveralone1.jpg",
-      "pheobe_watson.jpg"
-    ];
+   const filenames = [
+  "40_LIUC_GropiusBau_EthersBloom_0177.jpg",
+  "Amy_Freeman.jpg",
+  "Data_Relations.jpg",
+  "Drew.jpg",
+  "Elise-Ortiou-Campion-Selphish-vernissage122_1.jpg",
+  "Elizabeth.png",
+  "Heidegger.png",
+  "Kaoru.png",
+  "Lauren_lee.jpg",
+  "Meagan-Byrne.jpg",
+  "Mimi_Onuaha.jpg",
+  "Paolo.jpg",
+  "Screenshot 2025-08-03 163406.png",
+  "Screenshot 2025-08-03 163453.png",
+  "Screenshot 2025-08-03 164840.png",
+  "Screenshot 2025-08-03 170346.png",
+  "SecretGard.png",
+  "Shoshana.png",
+  "Stephanie.png",
+  "Trebor.jpg",
+  "Troy.jpg",
+  "VioletWhitney.jpeg",
+  "avita.jpg",
+  "calling-myself-self_orig.png",
+  "chia_amisola.jpg",
+  "chia_work.png",
+  "conversationswtihBina48.png",
+  "counterCartographies_alaska.jpg",
+  "cyborg-art-copy-1698862288885.jpg",
+  "embodied__5431_web.jpg",
+  "gold-plated-glamcam.jpg",
+  "hello_Someone.jpg",
+  "hill-agency-video-still.jpg",
+  "innchanted1.jpg",
+  "mo_in-absentia-geography-of-domination_03_rt.jpeg",
+  "mo_natural-or-where-are-we-allowed-to-be-4_01_rt.jpg",
+  "neveralone1.jpg",
+  "pheobe_watson.jpg",
+  "YouMatter3_NSMM-2048x1344.jpg",
+  "Copy-of-NSMM_YouMatter_Photography_250325_DSC01222-2048x1360.png",
+  "You_matter.png",
+  "Screenshot-2025-07-02-at-13.14.40-2048x1367.jpg",
+  "vr-project-interactive-design-2017-spring-kw-sn.jpg",
+  "Rules_roberts.png",
+  "ae1f460922dd7abb2c657d1783fb46fb.jpg",
+  "IMG_2770.jpeg",
+  "c98126f7703b32794f4cab827f294445.jpg",
+  "library_of_missing_datasets.jpg",
+  "forst.jpg",
+  "pointcloud_person.png",
+  "buildingpointscloud.jpg",
+  "Daniloff_Human+Unlimited_02.jpeg",
+  "Daniloff_Human+Unlimited_09.jpeg",
+  "photogrammetry.jpg", 
+  "2022-01-07-Teionihnhokaráwen-Wampum-King-300-10x6plusinches-scaled.jpg", 
+  "ThreeSisters-Install-01.jpg",
+  "skawennati_game.jpeg",
+  "Skawennati.png", 
+  "hanwi.jpg", 
+  "sacred_hoop.png",
+  "two_falls.png"
+];
 
-    const radius = 400;
+    const radius = 425;
 
     filenames.forEach((filename, i) => {
       const element = document.createElement('div');
