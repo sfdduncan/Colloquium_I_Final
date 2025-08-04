@@ -293,7 +293,11 @@ p {
   overflow: hidden;
   background-color: #54B3B3;
   background-image: none;
-
+  /* Add and center your PNG */
+  background-image: url('CyborgSIlhoutte.png');  /* Replace with your actual path */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 35vw auto; /* Or "auto" or "cover" depending on your needs */
 }
 
 /* Desktop icons */
@@ -717,9 +721,8 @@ iframe {
 #intro-text {
   display: inline-block;
   font-family: 'DotGothic16', monospace; /* Matches your retro vibe */
-  font-size: 16px;
+  font-size: .8rem;
   color: black; /* Change as needed */
-  line-height: 1.6;
   white-space: pre-wrap; /* Preserves newlines (\n) */
   padding: 20px;
 }
