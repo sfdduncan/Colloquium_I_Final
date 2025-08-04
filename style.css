@@ -37,7 +37,7 @@ h1 {
   padding: 20px;
   font-family: 'Jersey 25', monospace;
   letter-spacing: 3px;
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: #faf9f6;
 }
 
@@ -45,6 +45,7 @@ h2 {
   font-family:'DotGothic16', monospace; 
   font-style: normal; 
   color: #faf9f6;
+  font-size: 1.8rem;
 }
 
 
