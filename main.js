@@ -51,46 +51,54 @@ function updatePanel(index) {
 
 enterButton.addEventListener('click', () => {
   loginScreen.classList.add('hidden');
-  loadingScreen.classList.remove('hidden');
-
-  setTimeout(() => {
-    progressFill.style.width = '100%';
-  }, 100);
-
-  setTimeout(() => {
-    loadingScreen.classList.add('hidden');
-
-    // Directly show the desktop
-    const section2 = document.getElementById('section2');
-    section2.classList.remove('hidden');
-
-    // Scatter windows randomly
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    document.querySelectorAll('.window').forEach(win => {
-      const left = Math.random() * (windowWidth - 400);
-      const top = Math.random() * (windowHeight - 300);
-
-      win.style.display = 'block';
-      win.style.left = `${left}px`;
-      win.style.top = `${top}px`;
-      win.style.transform = 'none';
-    });
-
-    // Show dock
-    const dock = document.getElementById('mac-dock');
-    if (dock) dock.style.display = 'flex';
-
-    const introWin = document.getElementById('window-intro');
-    if (introWin) {
-      introWin.style.display = 'block';
-      introWin.style.zIndex = Date.now();
-      typeIntro(introText); // <-- Trigger the typing animation here
-
-    }
-  }, 3100);
+  document.getElementById('iframe-screen').classList.remove('hidden');
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const continueButton = document.getElementById('continue-button');
+
+  continueButton.addEventListener('click', () => {
+    document.getElementById('iframe-screen').classList.add('hidden');
+    loadingScreen.classList.remove('hidden');
+    progressFill.style.width = '0%';
+
+    setTimeout(() => {
+      progressFill.style.width = '100%';
+    }, 100);
+
+    setTimeout(() => {
+      loadingScreen.classList.add('hidden');
+      section2.classList.remove('hidden');
+
+      // Scatter windows randomly
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      document.querySelectorAll('.window').forEach(win => {
+        const left = Math.random() * (windowWidth - 400);
+        const top = Math.random() * (windowHeight - 300);
+
+        win.style.display = 'block';
+        win.style.left = `${left}px`;
+        win.style.top = `${top}px`;
+        win.style.transform = 'none';
+      });
+
+      // Show dock
+      const dock = document.getElementById('mac-dock');
+      if (dock) dock.style.display = 'flex';
+
+      const introWin = document.getElementById('window-intro');
+      if (introWin) {
+        introWin.style.display = 'block';
+        introWin.style.zIndex = Date.now();
+        typeIntro(introText);
+      }
+    }, 3100);
+  });
+});
+
 
 // Load 3D model into login screen (can be removed if no longer needed)
 const scene = new THREE.Scene();

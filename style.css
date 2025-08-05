@@ -16,11 +16,21 @@
   font-style: normal;
 }
 
+.hidden {
+  display: none !important;
+}
+
+
 #window-designs .window-content {
   overflow: visible !important;
   position: relative;
   width: 1000px;
   height: 700px;
+}
+
+#login-screen {
+  z-index: 10000;
+  position: fixed; /* just to be safe, in case overridden */
 }
 
 

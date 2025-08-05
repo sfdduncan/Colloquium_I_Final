@@ -38,6 +38,32 @@
     <button id="enter-button">Click Here to Enter</button>
   </div>
 
+  <!-- Intermediate Iframe Screen -->
+<div id="iframe-screen" class="panel hidden" style="
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+">
+  <iframe src="https://sfdduncan.github.io/three.js/examples/webgl_video_kinect_overhead.html" id="iframe-container" style="flex: 1; border: none;"></iframe>
+  <button id="continue-button" style="
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border: none;
+    padding: 12px 24px;
+    font-family: 'DotGothic16', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 10000;
+  ">Continue...</button>
+</div>
+
+
   <!-- Loading Screen -->
   <div id="loading-screen" class="panel loading-panel hidden">
     <h2 style="color:blue; font-weight:400; font-style:normal; padding: 0;">Loading...</h2>
@@ -382,6 +408,60 @@
   <script src="methods_circle.js"></script>
   <script src="scripts.js"></script>
   <script src="main.js"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const enterButton = document.getElementById('enter-button');
+  const continueButton = document.getElementById('continue-button');
+  const loginScreen = document.getElementById('login-screen');
+  const iframeScreen = document.getElementById('iframe-screen');
+  const loadingScreen = document.getElementById('loading-screen');
+  const progressFill = document.getElementById('progress-fill');
+  const section2 = document.getElementById('section2');
+  const dock = document.getElementById('mac-dock');
+  const introWin = document.getElementById('window-intro');
+
+  enterButton.addEventListener('click', () => {
+    loginScreen.classList.add('hidden');
+    iframeScreen.classList.remove('hidden');
+  });
+
+  continueButton.addEventListener('click', () => {
+    iframeScreen.classList.add('hidden');
+    loadingScreen.classList.remove('hidden');
+    progressFill.style.width = '0%';
+
+    setTimeout(() => {
+      progressFill.style.width = '100%';
+    }, 100);
+
+    setTimeout(() => {
+      loadingScreen.classList.add('hidden');
+      section2.classList.remove('hidden');
+
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      document.querySelectorAll('.window').forEach(win => {
+        const left = Math.random() * (windowWidth - 400);
+        const top = Math.random() * (windowHeight - 300);
+        win.style.display = 'block';
+        win.style.left = `${left}px`;
+        win.style.top = `${top}px`;
+        win.style.transform = 'none';
+      });
+
+      if (dock) dock.style.display = 'flex';
+      if (introWin) {
+        introWin.style.display = 'block';
+        introWin.style.zIndex = Date.now();
+        if (typeof typeIntro === 'function') {
+          typeIntro(introText);
+        }
+      }
+    }, 3100);
+  });
+});
+</script>
 </body>
 </html>
 

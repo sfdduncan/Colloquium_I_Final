@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GLB Animation Test</title>
+  <style>body { margin: 0; overflow: hidden; }</style>
+</head>
+<body>
+ <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+
+<!-- Required shaders and postprocessing tools -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/FocusShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/FilmShader.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/BloomPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/FilmPass.js"></script>
+
+   <script>
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x144283); // blue background
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+camera.position.set(0, 200, 400); // slightly behind and above
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(0, 10, 300);
+    scene.add(light);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    const loader = new THREE.GLTFLoader();
+
+    const mixers = [];
+    const walkers = [];
+
+    loader.load(
+      'walking_man.glb',
+      function (gltf) {
+        console.log("Model loaded successfully");
+
+        const baseModel = gltf.scene;
+        baseModel.scale.set(10000, 10000, 10000);
+
+        const walkClip = gltf.animations[0];
+
+        const rows = 4;
+        const cols = 5;
+        const spacing = 400;
+
+        for (let i = 0; i < rows; i++) {
+          for (let j = 0; j < cols; j++) {
+            const clone = baseModel.clone(true); // deep clone
+            clone.position.set((j - cols / 2) * spacing, 0, (i - rows / 2) * spacing);
+            scene.add(clone);
+
+            const mixer = new THREE.AnimationMixer(clone);
+            mixer.clipAction(walkClip).play();
+            mixers.push(mixer);
+
+            // Store walking direction and object
+            walkers.push({
+              mesh: clone,
+              speed: 20 + Math.random() * 10,
+              direction: new THREE.Vector3(1, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.random() * Math.PI * 2)
+            });
+          }
+        }
+      },
+      undefined,
+      function (error) {
+        console.error("An error occurred while loading the model:", error);
+      }
+    );
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+
+      // update all animation mixers
+      mixers.forEach(m => m.update(delta));
+
+      // move each walker
+      walkers.forEach(w => {
+        w.mesh.position.addScaledVector(w.direction, w.speed * delta);
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
