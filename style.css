@@ -20,6 +20,15 @@
   display: none !important;
 }
 
+.panel {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.panel.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 
 #window-designs .window-content {
   overflow: visible !important;
@@ -108,7 +117,7 @@ p {
 /* Loading & Retro Panels */
 .loading-panel,
 .retro-panel {
-  background-color: white;
+  background-color: whitesmoke;
   background-image: radial-gradient(#0033cc 1px, transparent 0);
   background-size: 30px 30px;
   color: #0033cc;
@@ -366,7 +375,6 @@ p {
   overflow: hidden;
 
 }
-s
 
 .window-header {
   position: sticky;

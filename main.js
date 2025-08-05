@@ -3,6 +3,7 @@ let typingInterval; // Global reference
 // Element refs
 const enterButton = document.getElementById('enter-button');
 const loginScreen = document.getElementById('login-screen');
+const iframeScreen = document.getElementById('iframe-screen');
 const loadingScreen = document.getElementById('loading-screen');
 const progressFill = document.getElementById('progress-fill');
 const section1 = document.getElementById('section1');
@@ -50,10 +51,17 @@ function updatePanel(index) {
 }
 
 enterButton.addEventListener('click', () => {
-  loginScreen.classList.add('hidden');
-  document.getElementById('iframe-screen').classList.remove('hidden');
+  // Fade out login screen
+  loginScreen.style.opacity = 0;
+  setTimeout(() => {
+    loginScreen.classList.add('hidden');
+    iframeScreen.classList.remove('hidden');
+    iframeScreen.style.opacity = 0;
+    setTimeout(() => {
+      iframeScreen.style.opacity = 1;
+    }, 50); // small delay to allow transition
+  }, 1000); // match transition duration
 });
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const continueButton = document.getElementById('continue-button');
