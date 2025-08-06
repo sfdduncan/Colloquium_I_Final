@@ -734,7 +734,7 @@ iframe {
   justify-content: center;
   gap: 1rem; /* spacing between images */
   flex-wrap: wrap; /* wrap if too narrow */
-  margin: 1rem 0;
+  margin: 2rem 0 2rem 0;
 }
 
 #window-projectidea .window-content .img-row img {
@@ -746,9 +746,7 @@ iframe {
 }
 
 li {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-}
+margin: .5rem 0 0.5rem 0; /* Adjusts spacing between list items */}
 
 /* Intro window text */
 #intro-text {
